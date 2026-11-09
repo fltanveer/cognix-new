@@ -1,0 +1,32 @@
+/* Inner-page hero figures. Tokens, cables and the edge mask come from home/rewire-iso.css (.rw-iso). */
+.hf .hf-accent{stroke:var(--rw-accent);stroke-width:1.2px}
+.hf .hf-glow{fill:var(--rw-accent);opacity:.5;filter:blur(4px)}
+.hf .hf-lit .iso-top{fill:var(--rw-accent)}
+.hf .hf-lit .iso-edge{stroke:var(--rw-accent)}
+.hf .hf-screen{fill:var(--anatomy-shade-0);stroke:var(--anatomy-lo);stroke-width:.7px}
+.hf .hf-button{fill:color-mix(in srgb,var(--rw-accent) 34%,transparent);stroke:var(--rw-accent);stroke-width:.9px}
+.hf .hf-window{fill:color-mix(in srgb,var(--rw-accent) 42%,transparent);stroke:var(--rw-accent);stroke-width:.8px}
+.hf .hf-ring{stroke:var(--rw-accent);stroke-width:1px;transform-box:fill-box;transform-origin:center;opacity:0;animation:hf-ring 2.4s cubic-bezier(.2,.7,.3,1) var(--d,0s) infinite}
+.hf .hf-pulse-line{stroke:#fff;stroke-width:2px;stroke-dasharray:.08 .92;stroke-dashoffset:1;animation:hf-run 3s linear infinite}
+
+@keyframes hf-ring{0%{opacity:.9;transform:scale(.4)}100%{opacity:0;transform:scale(2.1)}}
+@keyframes hf-run{to{stroke-dashoffset:-.08}}
+@keyframes hf-float{50%{transform:translateY(-5px)}}
+@keyframes hf-pulse{50%{opacity:.35}}
+@keyframes hf-blink{0%,45%{opacity:1}50%,95%{opacity:.25}100%{opacity:1}}
+@keyframes hf-travel{0%{transform:translate(0,0);opacity:0}10%{opacity:1}75%{transform:translate(var(--tx),var(--ty));opacity:1}100%{transform:translate(var(--tx),var(--ty));opacity:0}}
+@keyframes hf-seq{0%,100%{opacity:.3}12%,30%{opacity:1}}
+
+.hf .hf-float{animation:hf-float 5.5s ease-in-out infinite}
+.hf .hf-pulse,.hf .hf-pulse-fill{animation:hf-pulse 2.6s ease-in-out infinite}
+.hf .hf-blink{animation:hf-blink 1.8s steps(1) infinite}
+.hf .hf-travel{animation:hf-travel 4.2s cubic-bezier(.45,0,.2,1) infinite}
+.hf .hf-seq{animation:hf-seq 3.6s ease-in-out infinite}
+.hf .hf-seq-1{animation-delay:1.2s}
+.hf .hf-seq-2{animation-delay:2.4s}
+/* services: the four station lights in order */
+.hf .hf-seq:nth-of-type(n){animation-delay:var(--sd,0s)}
+
+/* only animate while visible (PageHero toggles data-onscreen); reduced motion holds the still */
+.hf:not([data-onscreen]) *{animation-play-state:paused!important}
+@media (prefers-reduced-motion:reduce){.hf *{animation:none!important}.hf .hf-ring{opacity:0}}

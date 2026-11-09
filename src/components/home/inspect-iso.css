@@ -1,0 +1,45 @@
+/* Inspection-bay figure. Tokens, cable and glow styles come from rewire-iso.css (.rw-iso). */
+.ins-iso .ins-glass{stroke:var(--anatomy-mid)}
+.ins-iso .ins-cable{stroke:#22261c}
+
+/* capture rays: a faint sight line, drawn lime while that view is captured */
+.ins-iso .ins-ray{stroke:var(--anatomy-faint);stroke-dasharray:.02 .03;stroke-width:1px;transition:stroke .35s}
+.ins-iso .ins-ray[data-on]{stroke:var(--rw-accent);stroke-dasharray:none;stroke-width:1.2px}
+.ins-iso .ins-ray[data-done]{stroke:var(--anatomy-lo);stroke-dasharray:none}
+
+/* phone screens light up when their view is taken */
+.ins-iso .ins-screen{fill:var(--anatomy-shade-0);stroke:var(--anatomy-lo);stroke-width:.7px;transition:fill .35s}
+.ins-iso .ins-screen[data-on]{fill:color-mix(in srgb,var(--rw-accent) 30%,var(--anatomy-shade-0))}
+
+/* findings: a lime ring and dot on the damaged panel, then a dashed annotation box */
+.ins-iso .ins-find{opacity:0;transition:opacity .35s}
+.ins-iso .ins-find[data-on]{opacity:1}
+.ins-iso .ins-ring{stroke:var(--rw-accent);stroke-width:1.2px}
+.ins-iso .ins-dot{fill:var(--rw-accent)}
+.ins-iso .ins-box{stroke:var(--anatomy-hi);stroke-dasharray:2 2;opacity:0;transition:opacity .35s}
+.ins-iso .ins-find[data-box] .ins-box{opacity:.7}
+
+/* the unit's five stage lights */
+.ins-iso .ins-stage .iso-top{fill:var(--anatomy-shade-3);transition:fill .4s}
+.ins-iso .ins-stage .iso-edge{transition:stroke .4s}
+.ins-iso .ins-stage[data-on] .iso-top{fill:var(--rw-accent)}
+.ins-iso .ins-stage[data-on] .iso-edge{stroke:var(--rw-accent)}
+.ins-iso .ins-stage[data-on] .rw-glow{opacity:.55}
+
+/* report pages drop into the tray one by one, then the stamp */
+.ins-iso .ins-page{opacity:0;transform:translateY(-6px);transition:opacity .25s,transform .35s cubic-bezier(.2,.8,.2,1)}
+.ins-iso .ins-page[data-on]{opacity:1;transform:none}
+.ins-iso .ins-stamp{opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(1.25);transition:opacity .3s,transform .4s cubic-bezier(.2,.8,.2,1)}
+.ins-iso .ins-stamp path{stroke:var(--rw-accent);stroke-width:1.2px}
+.ins-iso .ins-stamp[data-on]{opacity:1;transform:none}
+
+/* the finished run: server-rendered (no JS) and reduced motion */
+.ins-iso[data-ins="after"] .ins-ray{stroke:var(--anatomy-lo);stroke-dasharray:none}
+.ins-iso[data-ins="after"] .ins-find{opacity:1}
+.ins-iso[data-ins="after"] .ins-box{opacity:.7}
+.ins-iso[data-ins="after"] .ins-stage .iso-top{fill:var(--rw-accent)}
+.ins-iso[data-ins="after"] .ins-stage .iso-edge{stroke:var(--rw-accent)}
+.ins-iso[data-ins="after"] .ins-stage .rw-glow{opacity:.55}
+.ins-iso[data-ins="after"] .ins-page{opacity:1;transform:none}
+.ins-iso[data-ins="after"] .ins-stamp{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.ins-iso *{transition:none!important}}
