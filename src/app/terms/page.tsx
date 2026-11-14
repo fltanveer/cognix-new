@@ -13,7 +13,7 @@ export default function Terms() {
       <h2>Content</h2>
       <p>Text, design and images on this site belong to {site.legalName} or are used with permission. Client names and project material are shown with their permission and remain theirs.</p>
       <h2>No professional advice</h2>
-      <p>Articles and examples on this site are general information, not advice for your specific situation. Results described in case studies depend on each client’s circumstances.</p>
+      <p>Articles and examples on this site are general information, not advice for your specific situation. Results described in project write-ups depend on each client’s circumstances.</p>
       <h2>Prices</h2>
       <p>Prices on this site are starting points in US dollars. A project is only agreed once we both sign a written proposal or contract.</p>
       <h2>Liability</h2>

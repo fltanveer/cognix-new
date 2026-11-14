@@ -61,7 +61,8 @@ export function Reveal({ as: Tag = "div", children, className, variant = "rise",
   );
 
   return (
-    <Tag ref={ref} className={className} data-pending="" {...rest}>
+    // slide-left starts 60px to the right; clip it so phones never get a wider layout viewport.
+    <Tag ref={ref} className={variant === "slide-left" ? `${className ?? ""} overflow-x-clip` : className} data-pending="" {...rest}>
       {children}
     </Tag>
   );

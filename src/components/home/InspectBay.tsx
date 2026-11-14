@@ -10,7 +10,8 @@ const fmt = (s: number) => `${String(Math.floor(s / 60)).padStart(2, "0")}:${Str
 
 /**
  * The Auto Inspect recorded run, played on an isometric inspection bay (anatomy iso kit).
- * Plays once when it comes into view, with Replay: four captures, three findings,
+ * Plays once when it comes into view, with Replay: an agent walks the car with one phone, four
+ * captures each uploading to the unit, three findings,
  * five pipeline stages, six report pages and the sign-off stamp. Playback is compressed;
  * the clock shows the recorded time. Reduced motion shows the finished run.
  */
@@ -27,6 +28,7 @@ export function InspectBay({ art }: { art: ReactNode }) {
       const q = (s: string) => Array.from(fig.querySelectorAll<SVGElement>(s));
       const on = (els: Element[], v = true, attr = "data-on") => els.forEach((e) => (v ? e.setAttribute(attr, "") : e.removeAttribute(attr)));
       const rays = q(".ins-ray"), screens = q(".ins-screen"), finds = q(".ins-find"), stages = q(".ins-stage"), pages = q(".ins-page"), stamp = q(".ins-stamp");
+      const phones = q(".ins-phone"), ups = q(".ins-up"), rx = q(".ins-rx");
       const byI = (els: SVGElement[], i: number) => els.filter((e) => e.getAttribute("data-i") === String(i));
 
       if (prefersReducedMotion()) {
@@ -38,8 +40,8 @@ export function InspectBay({ art }: { art: ReactNode }) {
 
       const reset = () => {
         fig.setAttribute("data-ins", "run");
-        [rays, screens, finds, stages, pages, stamp].forEach((g) => on(g, false));
-        on(rays, false, "data-done");
+        [rays, screens, finds, stages, pages, stamp, phones, ups, rx].forEach((g) => on(g, false));
+        [rays, phones, ups].forEach((g) => on(g, false, "data-done"));
         on(finds, false, "data-box");
         if (clock.current) clock.current.textContent = fmt(0);
         setDone(false);
@@ -49,15 +51,21 @@ export function InspectBay({ art }: { art: ReactNode }) {
       const t = { s: 0 };
       const run = gsap.timeline({ paused: true, onComplete: () => setDone(true) });
       run.to(t, { s: RUN_S, duration: 8.2, ease: "none", onUpdate: () => clock.current && (clock.current.textContent = fmt(t.s)) }, 0);
-      // 1. guided capture: each phone takes its view in turn
+      // 1. guided capture: the agent walks the car (front, right, rear, left); each photo uploads as it's taken
       [0, 2, 1, 3].forEach((i, n) => {
-        const at = 0.3 + n * 0.55;
-        run.call(() => { on(byI(rays, i)); on(byI(screens, i)); }, [], at);
-        run.call(() => { on(byI(rays, i), false); on(byI(rays, i), true, "data-done"); }, [], at + 0.45);
+        const at = 0.25 + n * 0.58;
+        run.call(() => { on(byI(phones, i)); on(byI(rays, i)); on(byI(screens, i)); }, [], at);
+        run.call(() => { on(byI(rays, i), false); on(byI(rays, i), true, "data-done"); on(byI(ups, i)); }, [], at + 0.24);
+        run.call(() => on(rx), [], at + 0.78);
+        run.call(() => {
+          on(rx, false);
+          on(byI(ups, i), false); on(byI(ups, i), true, "data-done");
+          on(byI(phones, i), false); on(byI(phones, i), true, "data-done"); on(byI(screens, i), false);
+        }, [], at + 0.9);
       });
-      run.call(() => on(byI(stages, 0)), [], 2.6);
+      run.call(() => on(byI(stages, 0)), [], 2.95);
       // 2. quality check
-      run.call(() => on(byI(stages, 1)), [], 3.1);
+      run.call(() => on(byI(stages, 1)), [], 3.25);
       // 3. damage detection: three findings ring up on the car
       finds.forEach((f, i) => run.call(() => on([f]), [], 3.5 + i * 0.35));
       run.call(() => on(byI(stages, 2)), [], 4.5);
@@ -107,7 +115,7 @@ export function InspectBay({ art }: { art: ReactNode }) {
       </div>
       {art}
       <figcaption className="mt-1 text-[13px] text-[var(--ink-3)] lg:pr-[calc(var(--gutter)+2vw)]">
-        Totals from a recorded run: 4 views, 3 findings, a 6-page report in 1 min 47 s. Playback compressed.
+        Totals from a recorded run: 4 photos on one phone, uploaded as they are taken, 3 findings, a 6-page report in 1 min 47 s. Playback compressed.
       </figcaption>
     </figure>
   );

@@ -15,7 +15,36 @@ export const useLenis = () => useContext(LenisContext);
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const [lenis, setLenis] = useState<Lenis | null>(null);
   const pathname = usePathname();
-  const first = useRef(true);
+
+  // Keep every trigger and pin measured against the real layout, with or without Lenis.
+  useEffect(() => {
+    // Phone address bars resize the viewport while scrolling; re-measuring then makes pins jump.
+    ScrollTrigger.config({ ignoreMobileResize: true });
+
+    const refresh = () => ScrollTrigger.refresh();
+    document.fonts?.ready.then(refresh);
+    window.addEventListener("load", refresh);
+
+    // ScrollTrigger only re-measures on window resize. Content that grows later (lazy images,
+    // accordions, filters, late fonts) would leave triggers and pins below it at stale offsets.
+    let measured = document.documentElement.scrollHeight;
+    let timer = 0;
+    const onRefresh = () => void (measured = document.documentElement.scrollHeight);
+    ScrollTrigger.addEventListener("refresh", onRefresh);
+    const ro = new ResizeObserver(() => {
+      if (Math.abs(document.documentElement.scrollHeight - measured) < 2) return; // includes our own pin spacers
+      window.clearTimeout(timer);
+      timer = window.setTimeout(refresh, 180);
+    });
+    ro.observe(document.body);
+
+    return () => {
+      ro.disconnect();
+      window.clearTimeout(timer);
+      ScrollTrigger.removeEventListener("refresh", onRefresh);
+      window.removeEventListener("load", refresh);
+    };
+  }, []);
 
   useEffect(() => {
     if (prefersReducedMotion()) return;
@@ -25,11 +54,6 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
     setLenis(instance);
-
-    // Re-measure after fonts and late media settle.
-    const refresh = () => ScrollTrigger.refresh();
-    document.fonts?.ready.then(refresh);
-    window.addEventListener("load", refresh);
 
     // Anchor links go through Lenis.
     const onClick = (e: MouseEvent) => {
@@ -47,21 +71,30 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
 
     return () => {
       document.removeEventListener("click", onClick);
-      window.removeEventListener("load", refresh);
       gsap.ticker.remove(tick);
       instance.destroy();
       setLenis(null);
     };
   }, []);
 
+  // Back/forward keeps the browser's restored position; only fresh navigations start at the top.
+  const lastPath = useRef(pathname);
+  const popped = useRef(false);
   useEffect(() => {
-    if (first.current) {
-      first.current = false;
-      return;
+    const onPop = () => void (popped.current = true);
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
+
+  useEffect(() => {
+    if (lastPath.current === pathname) return; // first paint, or Lenis just became available
+    lastPath.current = pathname;
+    const restore = popped.current;
+    popped.current = false;
+    if (!restore && !window.location.hash) {
+      lenis?.scrollTo(0, { immediate: true, force: true });
+      if (!lenis) window.scrollTo(0, 0);
     }
-    if (window.location.hash) return;
-    lenis?.scrollTo(0, { immediate: true, force: true });
-    if (!lenis) window.scrollTo(0, 0);
     requestAnimationFrame(() => ScrollTrigger.refresh());
   }, [pathname, lenis]);
 

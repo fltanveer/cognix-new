@@ -66,7 +66,7 @@ export default function AboutPage() {
               {site.address.zip}.
             </p>
             <p>
-              <Link href="/case-studies" className="link-u text-[var(--ink)]">
+              <Link href="/work" className="link-u text-[var(--ink)]">
                 See our work →
               </Link>
             </p>
@@ -75,7 +75,7 @@ export default function AboutPage() {
       </section>
 
       <Faq items={faqs} />
-      <CtaBand source="about" secondary={{ label: "See our work", href: "/case-studies" }} />
+      <CtaBand source="about" secondary={{ label: "See our work", href: "/work" }} />
     </>
   );
 }

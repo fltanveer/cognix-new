@@ -71,7 +71,7 @@ export function Footer() {
         {col("Services", services.map((s) => ({ label: s.name, href: `/services/${s.slug}` })))}
         {col("Industries", industries.map((s) => ({ label: s.name, href: `/industries/${s.slug}` })))}
         {col("Company", [
-          { label: "Case studies", href: "/case-studies" },
+          { label: "Work", href: "/work" },
           { label: "Pricing", href: "/pricing" },
           { label: "About", href: "/about" },
           { label: "Insights", href: "/insights" },

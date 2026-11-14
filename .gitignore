@@ -42,3 +42,10 @@ next-env.d.ts
 
 # alternate build dir
 /.next-build/
+
+# local secrets
+api.env
+*.env
+
+# raw generated sources
+/scripts/.raw/

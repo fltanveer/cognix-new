@@ -31,11 +31,15 @@ export function SplitHeading({ as: Tag = "h2", text, className, trigger = "scrol
         release(el);
         return;
       }
-      gsap.set(targets, { yPercent: 110, rotate: 2.5 });
+      // y: 0 is explicit: on a remount (client navigation, Strict Mode) GSAP can otherwise read a leftover
+      // translate as `y` and add yPercent on top, leaving the words stuck below their clipped line.
+      gsap.set(targets, { y: 0, yPercent: 110, rotate: 2.5 });
       release(el);
       gsap.to(targets, {
+        y: 0,
         yPercent: 0,
         rotate: 0,
+        clearProps: "transform",
         duration: 1.05,
         ease: "expo.out",
         stagger,

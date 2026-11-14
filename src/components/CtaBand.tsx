@@ -7,7 +7,7 @@ import { Magnetic } from "@/components/motion/Magnetic";
 export function CtaBand({
   title = "Have a process that eats your team's week?",
   body = "Book a Workflow Review. We map one workflow with you and tell you honestly whether AI, automation or nothing is the right fix.",
-  secondary = { label: "See case studies", href: "/case-studies" },
+  secondary = { label: "See our work", href: "/work" },
   source = "cta-band",
 }: {
   title?: string;

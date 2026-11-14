@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { gsap, useGSAP, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
 
 /** Infinite marquee whose speed and direction respond to scroll velocity. Pauses offscreen. */
-export function Marquee({ items, className, speed = 40 }: { items: React.ReactNode[]; className?: string; speed?: number }) {
+export function Marquee({ items, className, speed = 40, dots = true }: { items: React.ReactNode[]; className?: string; speed?: number; dots?: boolean }) {
   const root = useRef<HTMLDivElement>(null);
   const track = useRef<HTMLDivElement>(null);
 
@@ -47,7 +47,7 @@ export function Marquee({ items, className, speed = 40 }: { items: React.ReactNo
       {items.map((it, i) => (
         <span key={i} className="flex shrink-0 items-center">
           {it}
-          <span className="mx-8 inline-block h-[5px] w-[5px] rounded-full bg-[var(--ink-3)] md:mx-12" />
+          {dots && <span className="mx-8 inline-block h-[5px] w-[5px] rounded-full bg-[var(--ink-3)] md:mx-12" />}
         </span>
       ))}
     </div>

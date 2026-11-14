@@ -229,7 +229,7 @@ export function SignalField({ triggerRef, className }: Props) {
           className="h-full w-full"
           style={{
             backgroundImage:
-              "repeating-linear-gradient(180deg, transparent 0 calc(100%/30 - 1px), color-mix(in oklch, var(--ink) 22%, transparent) calc(100%/30 - 1px) calc(100%/30))",
+              "repeating-linear-gradient(180deg, transparent 0 calc(100%/30 - 1px), color-mix(in srgb, var(--ink) 22%, transparent) calc(100%/30 - 1px) calc(100%/30))",
             maskImage: "radial-gradient(ellipse 80% 70% at 75% 45%, black 30%, transparent 80%)",
           }}
         />

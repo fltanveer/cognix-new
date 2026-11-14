@@ -3,13 +3,25 @@
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { industries } from "@/content/site";
-import { ScanToModel } from "@/components/work/ScanToModel";
 import { gsap, useGSAP, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
 
-const media: Record<string, { src?: string; alt: string }> = {
-  "insurance-inspections": { src: "/img/work/auto-inspect-field.webp", alt: "Inspector photographing a vehicle for Auto Inspect" },
-  "architecture-construction": { alt: "PKNail scan-to-model diagram" },
-  "healthcare-practices": { src: "/img/work/kibria-search.webp", alt: "Search results for a consultant surgeon on page one" },
+// Generated photos (scripts/gen-photos.mjs industries): they show the kind of work, not clients.
+const media: Record<string, { src: string; alt: string; tag: string }> = {
+  "insurance-inspections": {
+    src: "/img/industries/insurance-inspections.webp",
+    alt: "Inspector photographing a scraped bumper with a phone at dusk",
+    tag: "Auto Inspect · report in 1 min 47 s",
+  },
+  "architecture-construction": {
+    src: "/img/industries/architecture-construction.webp",
+    alt: "Engineer on a construction site holding a tablet with a wireframe of the building",
+    tag: "PKNail · Revit 2026 add-in live",
+  },
+  "healthcare-practices": {
+    src: "/img/industries/healthcare-practices.webp",
+    alt: "A consultant surgeon's practice office in the evening",
+    tag: "Dr. Kibria · 150%+ organic traffic",
+  },
 };
 
 /** Industry list with a sticky media frame that wipes to the industry in focus (hover, focus or scroll). */
@@ -74,17 +86,15 @@ export function Industries() {
                     key={ind.slug}
                     data-media={i}
                     className="media-frame absolute inset-0 border border-[var(--line)]"
-                    style={{ zIndex: active === i ? 2 : 1, visibility: active === i || prev.current === i ? "visible" : "hidden" }}
+                    style={{ position: "absolute", zIndex: active === i ? 2 : 1, visibility: active === i || prev.current === i ? "visible" : "hidden" }}
                     aria-hidden={active !== i}
                   >
-                    {m.src ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={m.src} alt={m.alt} loading="lazy" />
-                    ) : (
-                      <div className="absolute inset-0 p-10">
-                        <ScanToModel className="flex h-full flex-col" />
-                      </div>
-                    )}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={m.src} alt={m.alt} loading="lazy" />
+                    <span className="reel-tag" style={{ left: 16, bottom: 16, fontSize: 13 }}>
+                      <span className="reel-dot" />
+                      {m.tag}
+                    </span>
                   </div>
                 );
               })}

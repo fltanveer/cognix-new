@@ -49,14 +49,14 @@ export function LeadForm({ intent = "general", compact }: { intent?: string; com
         </div>
         <p className="mt-3 max-w-[50ch] text-[var(--ink-2)]">
           We reply within one business day. While you wait, the{" "}
-          <Link className="link-u text-[var(--ink)]" href="/case-studies/auto-inspect">
+          <Link className="link-u text-[var(--ink)]" href="/work/auto-inspect">
             Auto Inspect
           </Link>{" "}
           and{" "}
-          <Link className="link-u text-[var(--ink)]" href="/case-studies/dr-kibria-seo">
+          <Link className="link-u text-[var(--ink)]" href="/work/dr-kibria-seo">
             Dr. Kibria
           </Link>{" "}
-          case studies show how we work.
+          projects show how we work.
         </p>
       </div>
     );

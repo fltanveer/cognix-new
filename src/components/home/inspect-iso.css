@@ -1,6 +1,25 @@
 /* Inspection-bay figure. Tokens, cable and glow styles come from rewire-iso.css (.rw-iso). */
 .ins-iso .ins-glass{stroke:var(--anatomy-mid)}
-.ins-iso .ins-cable{stroke:#22261c}
+/* the agent's walk: a dashed path on the plate, and a dotted drop from each handheld phone to its spot */
+.ins-iso .ins-walk{stroke:var(--anatomy-lo);stroke-dasharray:3 4}
+.ins-iso .ins-drop{stroke:var(--anatomy-lo);stroke-dasharray:1 2.5}
+
+/* one phone at a time: the active one is solid, spots not yet taken are ghosts, taken ones half-lit */
+.ins-iso .ins-phone{opacity:.22;transition:opacity .35s}
+.ins-iso .ins-phone[data-on]{opacity:1}
+.ins-iso .ins-phone[data-done]{opacity:.55}
+
+/* wireless upload: a faint trail and a lime packet travelling from the phone to the unit */
+.ins-iso .ins-up{opacity:0;transition:opacity .3s}
+.ins-iso .ins-up[data-on]{opacity:1}
+.ins-iso .ins-up[data-done]{opacity:.35}
+.ins-iso .ins-up-trail{stroke:var(--anatomy-lo);stroke-dasharray:.012 .018}
+.ins-iso .ins-up-packet{stroke:var(--rw-accent);stroke-width:2px;stroke-linecap:round;stroke-dasharray:.07 .93;stroke-dashoffset:.07}
+.ins-iso .ins-up[data-on] .ins-up-packet{animation:ins-up .6s cubic-bezier(.4,0,.2,1) forwards}
+.ins-iso .ins-up[data-done] .ins-up-packet{opacity:0}
+@keyframes ins-up{to{stroke-dashoffset:-.93}}
+.ins-iso .ins-rx .rw-glow{opacity:0;transition:opacity .3s}
+.ins-iso .ins-rx[data-on] .rw-glow{opacity:.6}
 
 /* capture rays: a faint sight line, drawn lime while that view is captured */
 .ins-iso .ins-ray{stroke:var(--anatomy-faint);stroke-dasharray:.02 .03;stroke-width:1px;transition:stroke .35s}
@@ -35,6 +54,9 @@
 
 /* the finished run: server-rendered (no JS) and reduced motion */
 .ins-iso[data-ins="after"] .ins-ray{stroke:var(--anatomy-lo);stroke-dasharray:none}
+.ins-iso[data-ins="after"] .ins-phone{opacity:.55}
+.ins-iso[data-ins="after"] .ins-up{opacity:.35}
+.ins-iso[data-ins="after"] .ins-up-packet{opacity:0}
 .ins-iso[data-ins="after"] .ins-find{opacity:1}
 .ins-iso[data-ins="after"] .ins-box{opacity:.7}
 .ins-iso[data-ins="after"] .ins-stage .iso-top{fill:var(--rw-accent)}
@@ -42,4 +64,4 @@
 .ins-iso[data-ins="after"] .ins-stage .rw-glow{opacity:.55}
 .ins-iso[data-ins="after"] .ins-page{opacity:1;transform:none}
 .ins-iso[data-ins="after"] .ins-stamp{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.ins-iso *{transition:none!important}}
+@media (prefers-reduced-motion:reduce){.ins-iso *{transition:none!important;animation:none!important}}

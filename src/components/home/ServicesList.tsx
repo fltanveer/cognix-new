@@ -44,7 +44,7 @@ export function ServicesList() {
             <span
               aria-hidden="true"
               className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-              style={{ background: "radial-gradient(420px circle at var(--mx) var(--my), color-mix(in oklch, var(--ink) 7%, transparent), transparent 70%)" }}
+              style={{ background: "radial-gradient(420px circle at var(--mx) var(--my), color-mix(in srgb, var(--ink) 7%, transparent), transparent 70%)" }}
             />
             <span className="block overflow-hidden pb-[0.12em] transition-transform duration-500 ease-[var(--ease-out)] md:group-hover:translate-x-2">
               <span data-name="" className="t-d3 block">

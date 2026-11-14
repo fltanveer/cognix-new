@@ -43,8 +43,8 @@ export function WorkRail() {
             <div className="hidden h-px w-40 bg-[var(--line)] lg:block">
               <div ref={bar} className="h-px origin-left bg-[var(--ink)]" />
             </div>
-            <Link href="/case-studies" className="btn btn-ghost btn-sm">
-              All case studies
+            <Link href="/work" className="btn btn-ghost btn-sm">
+              All work
             </Link>
           </div>
         </div>
@@ -57,7 +57,7 @@ export function WorkRail() {
           ))}
           <div data-card="" className="hidden lg:flex lg:w-[26vw] lg:shrink-0 lg:flex-col lg:justify-center">
             <p className="text-[var(--ink-2)]">Also: social visibility for a dermatology clinic, positioning for an agile consultancy, and product design samples.</p>
-            <Link href="/case-studies" className="link-u mt-4 self-start text-[var(--ink)]">
+            <Link href="/work" className="link-u mt-4 self-start text-[var(--ink)]">
               Browse all work →
             </Link>
           </div>

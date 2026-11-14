@@ -10,6 +10,7 @@ import { CtaBand } from "@/components/CtaBand";
 import { InspectRun } from "@/components/work/InspectRun";
 import { ScanToModel } from "@/components/work/ScanToModel";
 import { CaseVisual } from "@/components/work/CaseVisual";
+import { CollectionGallery } from "@/components/work/CollectionGallery";
 
 export function generateStaticParams() {
   return cases.map((c) => ({ slug: c.slug }));
@@ -19,9 +20,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const c = getCase((await params).slug);
   if (!c) return {};
   return {
-    title: `${c.title} case study`,
+    title: `${c.title} · Work`,
     description: c.metaDescription,
-    alternates: { canonical: `/case-studies/${c.slug}` },
+    alternates: { canonical: `/work/${c.slug}` },
     openGraph: c.cover ? { images: [c.cover] } : undefined,
   };
 }
@@ -31,6 +32,69 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
   if (!c) notFound();
   const idx = cases.findIndex((x) => x.slug === c.slug);
   const next = cases[(idx + 1) % cases.length];
+
+  const nextNav = (
+    <nav aria-label="Next project" className="border-t border-[var(--line)]">
+      <Link href={`/work/${next.slug}`} data-cursor="Next project" className="group container-x flex items-center justify-between gap-8 py-14 md:py-20">
+        <span>
+          <span className="block text-[14px] text-[var(--ink-3)]">Next project</span>
+          <span className="t-d2 mt-2 block transition-colors group-hover:text-[var(--ink-2)]">{next.title}</span>
+        </span>
+        <span className="grid h-16 w-16 shrink-0 place-items-center rounded-full border border-[var(--line-strong)] text-[24px] transition-colors duration-300 group-hover:border-[var(--accent)] group-hover:bg-[var(--accent)] group-hover:text-[var(--accent-ink)]">
+          →
+        </span>
+      </Link>
+    </nav>
+  );
+
+  // Landing pages and shipped sites are bodies of separate client designs, not one project: show them as a gallery.
+  if (c.collection) {
+    const n = c.collection.items.length;
+    const sectors = new Set(c.collection.items.map((i) => i.category.split(" / ")[0])).size;
+    const isSites = c.collection.kind === "sites";
+    const facts = isSites
+      ? [{ k: "Sites shown", v: String(n) }, { k: "Sectors", v: String(sectors) }, { k: "Built", v: "Designed and built in code" }, { k: "Status", v: "Live, click through" }]
+      : [{ k: "Designs shown", v: String(n) }, { k: "Clients", v: `${n}, each its own brand` }, { k: "Sectors", v: String(sectors) }, { k: "Timeline", v: c.timeline ?? "" }];
+    return (
+      <article>
+        <header className="relative pb-12 pt-36 md:pt-44">
+          <div className="container-x">
+            <Reveal as="nav" variant="fade" aria-label="Breadcrumb" className="mb-8 text-[14px] text-[var(--ink-3)]">
+              <Link href="/work" className="link-u hover:text-[var(--ink)]">
+                ← Work
+              </Link>
+            </Reveal>
+            <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-[var(--line-strong)] px-3 py-1 text-[13px] text-[var(--ink-2)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+              {isSites ? "Collection · live websites" : "Collection · separate client designs"}
+            </p>
+            <SplitHeading as="h1" trigger="load" delay={0.1} text={c.title} className="t-d1 max-w-[16ch]" />
+            <Reveal variant="rise" delay={0.3}>
+              <p className="t-lead mt-6 max-w-[60ch] text-[var(--ink-2)]">{c.headline}. {c.challenge}</p>
+            </Reveal>
+            <Reveal as="dl" variant="rise" stagger={0.06} delay={0.4} className="mt-10 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-[var(--line)] pt-6 md:grid-cols-4">
+              {facts.map((g) => (
+                <div key={g.k}>
+                  <dt className="text-[13px] text-[var(--ink-3)]">{g.k}</dt>
+                  <dd className="mt-1 text-[15.5px]">{g.v}</dd>
+                </div>
+              ))}
+            </Reveal>
+          </div>
+        </header>
+        <section className="pb-[var(--section)]" aria-label={isSites ? "Live websites" : "Landing page designs"}>
+          <div className="container-x">
+            <p className="mb-10 text-[14px] text-[var(--ink-3)]">
+              {isSites ? "Hover a site to scroll it, click to see the full page, or visit it live." : "Hover a design to scroll the page, click to see it in full."}
+            </p>
+            <CollectionGallery items={c.collection.items} kind={c.collection.kind} />
+          </div>
+        </section>
+        {nextNav}
+        <CtaBand title={isSites ? "Need a site like these?" : "Need a page that earns the decision?"} source={`work-${c.slug}`} />
+      </article>
+    );
+  }
 
   const glance = [
     { k: "Client", v: c.client },
@@ -54,8 +118,8 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
       <header className="relative pb-14 pt-36 md:pt-44">
         <div className="container-x">
           <Reveal as="nav" variant="fade" aria-label="Breadcrumb" className="mb-8 text-[14px] text-[var(--ink-3)]">
-            <Link href="/case-studies" className="link-u hover:text-[var(--ink)]">
-              ← Case studies
+            <Link href="/work" className="link-u hover:text-[var(--ink)]">
+              ← Work
             </Link>
           </Reveal>
           {c.sample && (
@@ -165,17 +229,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
         </section>
       )}
 
-      <nav aria-label="Next case study" className="border-t border-[var(--line)]">
-        <Link href={`/case-studies/${next.slug}`} data-cursor="Next case" className="group container-x flex items-center justify-between gap-8 py-14 md:py-20">
-          <span>
-            <span className="block text-[14px] text-[var(--ink-3)]">Next case study</span>
-            <span className="t-d2 mt-2 block transition-colors group-hover:text-[var(--ink-2)]">{next.title}</span>
-          </span>
-          <span className="grid h-16 w-16 shrink-0 place-items-center rounded-full border border-[var(--line-strong)] text-[24px] transition-colors duration-300 group-hover:border-[var(--accent)] group-hover:bg-[var(--accent)] group-hover:text-[var(--accent-ink)]">
-            →
-          </span>
-        </Link>
-      </nav>
+      {nextNav}
 
       <CtaBand title="Have a similar process?" body="Book a Workflow Review. We map it with you and tell you honestly what would change." source={`case-${c.slug}`} />
     </article>

@@ -24,7 +24,7 @@ export const site = {
 
 export const nav = [
   { label: "Services", href: "/services" },
-  { label: "Case studies", href: "/case-studies" },
+  { label: "Work", href: "/work" },
   { label: "Industries", href: "/industries" },
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
@@ -241,6 +241,9 @@ export type Visual =
   | { kind: "window"; screens: string[]; ground: string; title: string }
   | { kind: "pages"; ground: string; pages: { src: string; title?: string; url?: string; reach?: number }[] };
 
+/** One design in a collection. `h` is the full-page screenshot height at 1280 px wide (drives the hover scroll). */
+export type CollectionItem = { name: string; category: string; timeline?: string; src: string; h: number; url?: string };
+
 export type CaseStudy = {
   slug: string;
   oldSlug?: string;
@@ -254,6 +257,8 @@ export type CaseStudy = {
   cover: string;
   coverAlt: string;
   visual?: Visual;
+  /** A body of separate designs (landing pages, shipped sites) shown as a gallery instead of a write-up. */
+  collection?: { kind: "designs" | "sites"; items: CollectionItem[] };
   metric?: { value: string; label: string };
   flagship?: boolean;
   sample?: boolean;
@@ -299,7 +304,7 @@ export const cases: CaseStudy[] = [
       { src: "/img/work/auto-inspect-trips.webp", alt: "Auto Inspect trip map and road rewards screens" },
       { src: "/img/work/auto-inspect-field.webp", alt: "Inspector photographing a vehicle interior" },
     ],
-    metaDescription: "Auto Inspect case study: AI vehicle inspection with guided capture, damage detection and an annotated 6-page PDF report in 1 min 47 s.",
+    metaDescription: "Auto Inspect project: AI vehicle inspection with guided capture, damage detection and an annotated 6-page PDF report in 1 min 47 s.",
   },
   {
     slug: "pknail",
@@ -309,8 +314,8 @@ export const cases: CaseStudy[] = [
     industry: "Architecture, engineering & construction",
     service: "AI & Software",
     status: "Revit 2026 add-in live",
-    cover: "",
-    coverAlt: "",
+    cover: "/img/work/pknail-cover.webp",
+    coverAlt: "Studio monitor turning a building point cloud into a clean wall model, with a laser scanner on a tripod beside it",
     metric: { value: "Revit 2026", label: "add-in live" },
     flagship: true,
     summary: "An engine that takes a site scan, extracts walls, openings and plan geometry with AI, and produces a native Revit model instead of a traced reference.",
@@ -327,7 +332,7 @@ export const cases: CaseStudy[] = [
       { value: "3-step", label: "scan → AI extraction → model pipeline" },
     ],
     gallery: [],
-    metaDescription: "PKNail 2.0 case study: an AI scan-to-Revit engine that converts point clouds into native Revit models. Revit 2026 add-in live.",
+    metaDescription: "PKNail 2.0 project: an AI scan-to-Revit engine that converts point clouds into native Revit models. Revit 2026 add-in live.",
   },
   {
     slug: "drive",
@@ -557,7 +562,7 @@ export const cases: CaseStudy[] = [
     status: "Complete",
     timeline: "4 months",
     cover: "/img/work/kibria-cover.webp",
-    coverAlt: "Rapid Google search and Maps ranking success cover",
+    coverAlt: "Phone on a surgeon's desk showing a map with one highlighted location pin, beside a stethoscope",
     metric: { value: "150%+", label: "organic traffic growth" },
     flagship: true,
     summary: "Search, Maps and AI Overview visibility for a British-trained consultant general, vascular and laparoscopic surgeon with 38+ years of experience.",
@@ -578,7 +583,7 @@ export const cases: CaseStudy[] = [
       { src: "/img/work/kibria-maps.webp", alt: "Google Maps listing for Dr. Kibria" },
       { src: "/img/work/kibria-result.webp", alt: "Analytics review of organic traffic growth", wide: true },
     ],
-    metaDescription: "SEO case study: 150%+ organic traffic and page-one rankings for 10+ keywords for a consultant surgeon in four months, plus top Google Maps position.",
+    metaDescription: "SEO project: 150%+ organic traffic and page-one rankings for 10+ keywords for a consultant surgeon in four months, plus top Google Maps position.",
   },
   {
     slug: "phc-aesthetic",
@@ -590,7 +595,7 @@ export const cases: CaseStudy[] = [
     service: "SEO & Growth",
     status: "Ongoing",
     cover: "/img/work/phc-cover.webp",
-    coverAlt: "Social media visibility growth cover for PHC Aesthetic",
+    coverAlt: "Phone and ring light set up to film in an aesthetic clinic treatment room",
     summary: "Treatment-led, location-focused social content that put a Banani clinic in front of patients searching Facebook for specific treatments.",
     challenge: "The clinic's Facebook presence didn't appear in local searches. Competitors dominated treatment queries and content wasn't written for location-driven intent.",
     phases: [
@@ -608,7 +613,7 @@ export const cases: CaseStudy[] = [
       { src: "/img/work/phc-a.webp", alt: "PHC Aesthetic social content examples" },
       { src: "/img/work/phc-b.webp", alt: "PHC Aesthetic Facebook search presence" },
     ],
-    metaDescription: "Social visibility case study: location-focused Facebook content that put PHC Aesthetic & Derma Care in local treatment searches in Banani, Dhaka.",
+    metaDescription: "Social visibility project: location-focused Facebook content that put PHC Aesthetic & Derma Care in local treatment searches in Banani, Dhaka.",
   },
   {
     slug: "jvs-management",
@@ -620,7 +625,7 @@ export const cases: CaseStudy[] = [
     service: "Product & UX",
     status: "Complete",
     cover: "/img/work/jvs-cover.webp",
-    coverAlt: "JVS Management cover with team at a planning wall",
+    coverAlt: "Hand placing a sticky note on a sprint planning wall",
     summary: "JVS Management helps companies adopt Scrum and Agile properly, through coaching, training and leadership support.",
     challenge: "JVS needed to explain a nuanced consulting offer (coaching, training and organizational transformation) to leaders who have often seen Agile adopted badly before.",
     phases: [
@@ -644,11 +649,26 @@ export const cases: CaseStudy[] = [
     industry: "Marketing sites",
     service: "Product & UX",
     status: "Product design",
-    timeline: "2 to 8 weeks each",
+    timeline: "2 weeks to 2 months each",
     cover: "",
     coverAlt: "Landing pages for Capital Coin, Prospera and Silk Route scrolling in browser windows",
     visual: { kind: "pages", ground: "#121316", pages: [{ src: "/img/work/p/landing/capital-coin.webp", title: "Capital Coin" }, { src: "/img/work/p/landing/prospera.webp", title: "Prospera" }, { src: "/img/work/p/landing/silk-route.webp", title: "Silk Route" }] },
-    metric: { value: "11 pages", label: "shown in the portfolio" },
+    collection: {
+      kind: "designs",
+      items: [
+        { name: "Capital Coin", category: "Crypto / Web3", timeline: "2 months", src: "/img/work/p/landing/capital-coin.webp", h: 6005 },
+        { name: "Prospera", category: "Fintech / SaaS", timeline: "5 weeks", src: "/img/work/p/landing/prospera.webp", h: 5933 },
+        { name: "Silk Route", category: "E-commerce / Fashion", timeline: "1 month", src: "/img/work/p/landing/silk-route.webp", h: 7095 },
+        { name: "Budget Now", category: "Fintech", timeline: "3 weeks", src: "/img/work/p/landing/budget-now.webp", h: 7202 },
+        { name: "MaxShelf Retail", category: "Retail / POS", timeline: "3 weeks", src: "/img/work/p/landing/maxshelf.webp", h: 7609 },
+        { name: "Polock Interior", category: "Interior design", timeline: "1 month", src: "/img/work/p/landing/polock.webp", h: 6271 },
+        { name: "QProco", category: "SaaS / Productivity", timeline: "3 weeks", src: "/img/work/p/landing/qproco.webp", h: 7804 },
+        { name: "Kina Becha", category: "E-commerce", timeline: "1 month", src: "/img/work/p/landing/kina-becha.webp", h: 4038 },
+        { name: "Revexia", category: "SaaS", timeline: "5 months, with the product", src: "/img/work/p/landing/revexia-landing.webp", h: 6293 },
+        { name: "Jeff Sutherland", category: "Personal brand", timeline: "2 weeks", src: "/img/work/p/landing/jeff-sutherland.webp", h: 6029 },
+      ],
+    },
+    metric: { value: "10 designs", label: "for 10 different clients" },
     summary: "Eleven landing pages, each with one job: earn a decision. Capital Coin (crypto exchange), Prospera (financial planning), Silk Route (fashion), Budget Now (personal finance), MaxShelf (retail SaaS), Polock Interior, QProco, Kina Becha, Revexia and a personal brand page for Jeff Sutherland.",
     challenge: "A landing page gets seconds. Each one had to explain the offer, build trust for its audience and lead to one clear action.",
     phases: [
@@ -680,6 +700,18 @@ export const cases: CaseStudy[] = [
     cover: "",
     coverAlt: "Live sites for Edge Surgical, Argos Legal Group and FacilityFlow in browser windows",
     visual: { kind: "pages", ground: "#202328", pages: [{ src: "/img/work/p/sites/edge.webp", url: "edgesurgical.vercel.app", reach: 0.35 }, { src: "/img/work/p/sites/argos.webp", url: "argos-legal-group.vercel.app", reach: 0.25 }, { src: "/img/work/p/sites/facilityflow.webp", url: "facilityflow.dk", reach: 0.35 }] },
+    collection: {
+      kind: "sites",
+      items: [
+        { name: "Edge Surgical", category: "Surgical devices", src: "/img/work/p/sites/edge.webp", h: 5814, url: "https://edgesurgical.vercel.app/" },
+        { name: "Argos Legal Group", category: "Legal", src: "/img/work/p/sites/argos.webp", h: 5566, url: "https://argos-legal-group.vercel.app/" },
+        { name: "FacilityFlow", category: "Facility management SaaS", src: "/img/work/p/sites/facilityflow.webp", h: 6400, url: "https://facilityflow.dk/" },
+        { name: "Noma", category: "Wellness / IV therapy", src: "/img/work/p/sites/noma.webp", h: 4283, url: "https://noma-iota.vercel.app/" },
+        { name: "HopOn", category: "Ride and delivery", src: "/img/work/p/sites/hopon.webp", h: 3803, url: "https://hoponbd.com/" },
+        { name: "MLJ Digital", category: "Digital studio", src: "/img/work/p/sites/mlj.webp", h: 3039, url: "https://mljdigital.dk/" },
+        { name: "AixAi", category: "Building intelligence", src: "/img/work/p/sites/aixai.webp", h: 6400, url: "https://aixai-web.vercel.app/" },
+      ],
+    },
     metric: { value: "12 sites", label: "live in the portfolio" },
     summary: "Sites designed and built directly in code, with AI-assisted development directed by a designer: Edge Surgical, Argos Legal Group, FacilityFlow, HopOn, MLJ Digital, Noma, AixAi and more.",
     challenge: "Design files are not the product. These projects went from design to live, responsive sites without a separate hand-off.",

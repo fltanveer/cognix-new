@@ -17,11 +17,14 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: "/about-us", destination: "/about", permanent: true },
-      { source: "/projects", destination: "/case-studies", permanent: true },
+      { source: "/projects", destination: "/work", permanent: true },
       ...Object.entries(caseMap).flatMap(([from, to]) => [
-        { source: `/projects/${from}`, destination: `/case-studies/${to}`, permanent: true },
-        { source: `/project/${from}`, destination: `/case-studies/${to}`, permanent: true },
+        { source: `/projects/${from}`, destination: `/work/${to}`, permanent: true },
+        { source: `/project/${from}`, destination: `/work/${to}`, permanent: true },
       ]),
+      // "Case studies" became "Work" (most entries are project write-ups, not full case studies).
+      { source: "/case-studies", destination: "/work", permanent: true },
+      { source: "/case-studies/:slug", destination: "/work/:slug", permanent: true },
       { source: "/ai-transformation", destination: "/pricing", permanent: true },
       { source: "/blog", destination: "/insights", permanent: true },
       ...posts.map((p) => ({ source: `/${p.oldSlug}`, destination: `/insights/${p.slug}`, permanent: true })),

@@ -70,6 +70,7 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
       <dialog
         ref={dialog}
         aria-labelledby="booking-title"
+        data-lenis-prevent=""
         className="m-0 h-full max-h-none w-full max-w-none bg-transparent p-0 backdrop:bg-black/80"
         onClick={(e) => e.target === dialog.current && close()}
       >

@@ -13,8 +13,7 @@ import { Team } from "@/components/Team";
 import { TestimonialRows } from "@/components/TestimonialRows";
 import { Faq } from "@/components/Faq";
 import { CtaBand } from "@/components/CtaBand";
-import { InspectBay } from "@/components/home/InspectBay";
-import { InspectArt } from "@/components/home/InspectArt";
+import { InspectDemo } from "@/components/home/InspectDemo";
 import { SplitHeading } from "@/components/motion/SplitHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { homeFaqs } from "@/content/site";
@@ -57,13 +56,13 @@ export default function Home() {
                 detects and annotates damage, and issues a time-stamped report.
               </p>
               <p>
-                <Link href="/case-studies/auto-inspect" className="link-u text-[var(--ink)]">
-                  Read the Auto Inspect case study →
+                <Link href="/work/auto-inspect" className="link-u text-[var(--ink)]">
+                  See the Auto Inspect project →
                 </Link>
               </p>
             </Reveal>
           </div>
-          <InspectBay art={<InspectArt />} />
+          <InspectDemo />
         </div>
       </section>
 

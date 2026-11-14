@@ -1,0 +1,33 @@
+/* Method phase icons. Tokens come from rewire-iso.css (.rw-iso). The accent is grey until its phase is in
+   focus (.is-on on the phase <li>, or on .mi itself in previews), then lime with a quiet loop. */
+.mi { -webkit-mask-image: none; mask-image: none; transition: opacity 0.5s ease; opacity: 0.55; }
+.is-on .mi, .mi.is-on { opacity: 1; }
+
+.mi .mi-accent { stroke: var(--anatomy-lo); stroke-width: 1.2px; transition: stroke 0.5s ease; }
+.mi .mi-thin { stroke-width: 0.8px; }
+.mi .mi-glow { fill: var(--rw-accent); opacity: 0; filter: blur(5px); transition: opacity 0.5s ease; }
+.mi .mi-lit .iso-top { transition: fill 0.5s ease; }
+.mi .mi-lit .iso-edge { transition: stroke 0.5s ease; }
+.mi .mi-drop { stroke: var(--anatomy-lo); stroke-dasharray: 1 2.4; }
+
+.is-on .mi .mi-accent, .mi.is-on .mi-accent { stroke: var(--rw-accent); }
+.is-on .mi .mi-glow, .mi.is-on .mi-glow { opacity: 0.5; }
+.is-on .mi .mi-lit .iso-top, .mi.is-on .mi-lit .iso-top { fill: var(--rw-accent); }
+.is-on .mi .mi-lit .iso-edge, .mi.is-on .mi-lit .iso-edge { stroke: var(--rw-accent); }
+
+/* loops: attached only while in focus, so resting icons show their complete drawing */
+.is-on .mi .mi-bob, .mi.is-on .mi-bob { animation: mi-bob 3.2s ease-in-out infinite; }
+@keyframes mi-bob { 50% { transform: translateY(-4px); } }
+
+.is-on .mi .mi-lower, .mi.is-on .mi-lower { animation: mi-lower 3.6s cubic-bezier(0.6, 0, 0.3, 1) infinite; }
+@keyframes mi-lower { 0%, 15% { transform: none; } 50%, 75% { transform: translate(var(--tx), var(--ty)); } 100% { transform: none; } }
+
+.mi .mi-draw path, .mi .mi-trend path { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.is-on .mi .mi-draw path, .mi.is-on .mi-draw path,
+.is-on .mi .mi-trend path, .mi.is-on .mi-trend path { animation: mi-draw 4s ease-in-out infinite; }
+@keyframes mi-draw { 0% { stroke-dashoffset: 1; } 45%, 85% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .mi * { animation: none !important; transition: none !important; }
+  .mi .mi-draw path, .mi .mi-trend path { stroke-dashoffset: 0; }
+}

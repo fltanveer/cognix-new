@@ -6,7 +6,7 @@ import { CaseVisual } from "./CaseVisual";
 /** Case card: industry, service and one metric, per the audit's case-study card rule. */
 export function CaseCard({ c, priority, size = "lg" }: { c: CaseStudy; priority?: boolean; size?: "lg" | "md" }) {
   return (
-    <Link href={`/case-studies/${c.slug}`} data-cursor="View case" className="group block focus-visible:outline-offset-8">
+    <Link href={`/work/${c.slug}`} data-cursor="View project" className="group block focus-visible:outline-offset-8">
       <div className={`media-frame relative ${size === "lg" ? "aspect-[16/11]" : "aspect-[4/3]"}`}>
         {c.visual ? (
           <div className="absolute inset-0 transition-transform duration-[900ms] ease-[var(--ease-out)] group-hover:scale-[1.02]">
