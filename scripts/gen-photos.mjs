@@ -58,18 +58,18 @@ const HAND = {
 const AVATAR_LOOK =
   "Tight head-and-shoulders portrait photo for an app profile avatar, softly lit, dark charcoal background, natural skin, friendly neutral expression, shallow depth of field. No text, no logos.";
 const AVATARS = {
-  "av-1": "A woman in her early 30s with curly dark hair, olive sweater.",
+  "av-1": "A white American woman in her early 30s with wavy light-brown hair, olive sweater.",
   "av-2": "A man in his 40s with short grey beard and glasses, dark shirt.",
-  "av-3": "A young East Asian woman with straight black hair, black blazer.",
-  "av-4": "A man in his late 20s with short black hair and light stubble, charcoal hoodie.",
+  "av-3": "A white American woman in her late 20s with straight blonde shoulder-length hair, black blazer.",
+  "av-4": "A white American man in his late 20s with short brown hair and light stubble, charcoal hoodie.",
 };
 
 // Full-bleed portrait cards inside the phone feed (illustrative app users).
 const FACE_LOOK =
   "Editorial portrait photo, head and shoulders filling the frame, face centred in the upper half, soft directional light, deep charcoal background with a faint warm rim light, natural skin texture, confident relaxed expression. No text, no logos.";
 const FACES = {
-  "face-1": "A South Asian woman in her early 30s, hair tied back, black turtleneck.",
-  "face-2": "A Black man in his late 30s with a short beard, olive field jacket over a grey t-shirt.",
+  "face-1": "A white American woman in her early 30s with auburn hair tied back, black turtleneck.",
+  "face-2": "A white American man in his late 30s with a short brown beard, olive field jacket over a grey t-shirt.",
   "face-3": "A woman in her 40s with short silver-blonde hair and small earrings, dark navy blazer.",
 };
 

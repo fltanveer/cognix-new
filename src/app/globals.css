@@ -8,11 +8,12 @@
   --line-strong: oklch(0.92 0.02 125 / 0.2);
   --hi: oklch(1 0 0 / 0.06);
   --ink: oklch(0.955 0.01 120);
-  --ink-2: oklch(0.955 0.01 120 / 0.66);
-  --ink-3: oklch(0.955 0.01 120 / 0.44);
+  --ink-2: oklch(0.955 0.01 120 / 0.74);
+  --ink-3: oklch(0.955 0.01 120 / 0.56);
   --accent: #c9f31d;
   --accent-ink: #0e1104;
   --accent-soft: oklch(0.9 0.2 125 / 0.14);
+  --accent-text: var(--accent);
   --paper: oklch(0.975 0.004 110);
   --paper-2: oklch(0.945 0.006 110);
   --graphite: oklch(0.24 0.01 125);
@@ -28,6 +29,8 @@
   --section: clamp(88px, 11vw, 136px);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
+/* Large monitors: a wider content column so pages don't sit as a narrow strip in a sea of margin. */
+@media (min-width: 1800px) { :root { --container: 1440px; } }
 
 @theme inline {
   --color-canvas: var(--canvas);
@@ -90,7 +93,7 @@ p { text-wrap: pretty; }
   outline-offset: 3px;
   border-radius: 6px;
 }
-.on-paper :focus-visible { outline-color: var(--graphite); }
+.on-paper :focus-visible, .tone-light :focus-visible { outline-color: var(--graphite); }
 
 .container-x { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); }
 .section { padding-block: var(--section); }
@@ -138,7 +141,7 @@ p { text-wrap: pretty; }
 @property --ga { syntax: "<number>"; inherits: false; initial-value: 0.42; }
 .btn-primary {
   --gx: 50%; --gy: 118%; --ga: 0.42;
-  color: var(--ink);
+  color: #eef1e6; /* fixed: the pill is always dark, whatever the section tone */
   border: 1px solid transparent;
   background:
     radial-gradient(58% 95% at var(--gx) var(--gy), color-mix(in srgb, var(--accent) calc(var(--ga) * 100%), transparent), transparent 72%) padding-box,
@@ -163,10 +166,8 @@ p { text-wrap: pretty; }
   .btn-primary:hover { --ga: 0.72; --gy: 92%; box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.09), 0 14px 40px -12px color-mix(in srgb, var(--accent) 55%, transparent); }
   .btn-primary:hover::after { opacity: 0.75; }
   .btn-ghost:hover { background: var(--surface-2); border-color: var(--line-strong); }
-  .on-paper .btn-ghost:hover { background: var(--paper-2); }
 }
 .btn-ghost { border: 1px solid var(--line-strong); color: var(--ink); }
-.on-paper .btn-ghost { border-color: var(--paper-line); color: var(--graphite); }
 .btn-sm { height: 42px; padding: 0 16px 0 18px; font-size: 15px; }
 .btn .arrow { transition: transform .2s var(--ease-out); }
 @media (hover: hover) { .btn:hover .arrow { transform: translateX(3px); } }
@@ -205,8 +206,43 @@ html.js [data-pending] { opacity: 0; }
 .marquee { display: flex; width: max-content; }
 
 /* Paper (long-form) surface */
-.on-paper { background: var(--paper); color: var(--graphite); }
-.on-paper ::selection { background: var(--graphite); color: var(--paper); }
+/*
+ * Section tones. The site is dark by default; reading-heavy sections switch to light paper and the
+ * closing call to action to lime. Each tone redefines the colour tokens, so every component inside
+ * (cards, borders, secondary text, buttons, links) re-colours itself with no per-component overrides.
+ * Contrast (WCAG): light ink-2 ≈ 9:1, ink-3 ≈ 5:1 on paper; lime ink-2 ≈ 9:1 on lime.
+ */
+.tone-light, .on-paper, .tokens-light {
+  --canvas: oklch(0.975 0.004 110);
+  --surface: oklch(0.995 0.002 110);
+  --surface-2: oklch(0.945 0.006 110);
+  --line: oklch(0.24 0.01 125 / 0.12);
+  --line-strong: oklch(0.24 0.01 125 / 0.22);
+  --hi: oklch(0 0 0 / 0.04);
+  --ink: oklch(0.21 0.012 125);
+  --ink-2: oklch(0.21 0.012 125 / 0.78);
+  --ink-3: oklch(0.21 0.012 125 / 0.62);
+  --accent-soft: oklch(0.8 0.19 125 / 0.22);
+  --accent-text: oklch(0.5 0.14 128);
+}
+.tone-light, .on-paper { background: var(--canvas); color: var(--ink); }
+.tone-lime, .tokens-lime {
+  --canvas: var(--accent);
+  --surface: oklch(0.88 0.2 124);
+  --surface-2: oklch(0.84 0.19 124);
+  --line: oklch(0.2 0.03 125 / 0.16);
+  --line-strong: oklch(0.2 0.03 125 / 0.3);
+  --hi: oklch(0 0 0 / 0.05);
+  --ink: #0e1104;
+  --ink-2: rgb(14 17 4 / 0.8);
+  --ink-3: rgb(14 17 4 / 0.64);
+  --accent-text: #0e1104;
+}
+.tone-lime { background: var(--canvas); color: var(--ink); }
+/* on lime the button glow and focus ring can't be lime; use ink */
+.tone-lime .btn-primary { --accent: #e9ffa0; }
+.tone-lime :focus-visible { outline-color: #0e1104; }
+.on-paper ::selection, .tone-light ::selection { background: var(--graphite); color: var(--paper); }
 
 .prose-c { font-size: 18px; line-height: 1.72; color: var(--graphite); }
 .prose-c > * + * { margin-top: 1.1em; }
@@ -267,8 +303,13 @@ details > summary::-webkit-details-marker { display: none; }
 /* ---------- Header: floating logo / tubelight pill / CTA ---------- */
 .site-header { transition: background-color 0.3s ease; }
 .site-header::before {
-  content: ""; position: absolute; inset: 0 0 -28px; pointer-events: none; opacity: 0; transition: opacity 0.35s ease;
-  background: linear-gradient(to bottom, color-mix(in srgb, var(--canvas) 92%, transparent) 40%, transparent);
+  content: ""; position: absolute; inset: 0 0 -32px; pointer-events: none; opacity: 0;
+  transition: opacity 0.35s ease, background-color 0.35s ease;
+  /* a soft frosted band: page content dissolves behind the bar instead of showing through */
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--canvas) 94%, transparent) 0%, color-mix(in srgb, var(--canvas) 82%, transparent) 60%, transparent 100%);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
 }
 .site-header.is-scrolled::before { opacity: 1; }
 
@@ -297,6 +338,17 @@ details > summary::-webkit-details-marker { display: none; }
 .tube-bulb::before { width: 54px; height: 22px; top: -6px; margin-left: -27px; filter: blur(10px); }
 .tube-bulb::after { width: 30px; height: 18px; top: 0; margin-left: -15px; filter: blur(6px); background: oklch(0.9 0.2 125 / 0.28); }
 
+/* Header and dock adopt the tone of the section beneath them (Header sets tokens-light / tokens-lime). */
+.tube-nav, .dock-pill { transition: background-color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease; }
+.tube-bulb { background: var(--accent-text); transition: background-color 0.35s ease; }
+.tokens-light .tube-nav, .tokens-light .dock-pill { box-shadow: 0 10px 30px -16px rgb(16 18 13 / 0.25); }
+.tokens-lime .tube-nav, .tokens-lime .dock-pill { box-shadow: none; }
+.logo-swap { position: relative; display: inline-grid; }
+.logo-swap img { grid-area: 1 / 1; transition: opacity 0.35s ease; }
+.logo-swap .logo-dark { opacity: 0; }
+.tokens-light .logo-swap .logo-light, .tokens-lime .logo-swap .logo-light { opacity: 0; }
+.tokens-light .logo-swap .logo-dark, .tokens-lime .logo-swap .logo-dark { opacity: 1; }
+
 /* Mobile dock */
 .dock { position: fixed; z-index: 50; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom)); transform: translateX(-50%); }
 .dock-pill {
@@ -312,6 +364,31 @@ details > summary::-webkit-details-marker { display: none; }
 .dock-lamp::after { content: ""; position: absolute; left: -10px; right: -10px; top: -4px; height: 16px; border-radius: 999px; background: oklch(0.9 0.2 125 / 0.35); filter: blur(7px); }
 @media (max-width: 1023px) { body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); } }
 @media (prefers-reduced-motion: reduce) { .tube-lamp, .site-header::before { transition: none; } }
+
+/* Work rail (pinned, full screen): cards grow with screen height so tall monitors don't leave the
+   pinned rail floating in empty space. Laptop sizes keep the original 46vw / 720px. */
+@media (min-width: 1024px) {
+  .rail-card { width: clamp(min(46vw, 720px), calc((100svh - 400px) * 1.3), 1040px); }
+}
+
+/* Touch screens: small text links (logo, breadcrumbs, footer, inline arrows) get an invisible
+   44px-tall hit area so they're easy to tap, without changing the visual layout. */
+@media (pointer: coarse) {
+  header a[aria-label], nav[aria-label="Breadcrumb"] a, footer a, a.link-u, .tap-area { position: relative; }
+  header a[aria-label]::after, nav[aria-label="Breadcrumb"] a::after, footer a::after, a.link-u::after, .tap-area::after {
+    content: ""; position: absolute; left: 50%; top: 50%; width: max(44px, calc(100% + 12px)); height: max(44px, 100%); transform: translate(-50%, -50%);
+  }
+}
+
+/* Footer social icons: 44px round buttons. */
+.social-btn {
+  display: grid; place-items: center; width: 44px; height: 44px; border-radius: 999px;
+  border: 1px solid var(--line-strong); color: var(--ink-2);
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+.social-btn:hover { background: var(--accent); border-color: transparent; color: var(--accent-ink); transform: translateY(-2px); }
+.social-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+footer a.social-btn::after { display: none; } /* already 44px; no extra hit area needed */
 
 /* Client logo strip: one tone, quiet until hovered. */
 .client-logo { display: inline-flex; align-items: center; height: 56px; padding: 0 clamp(20px, 3vw, 44px); }
@@ -340,13 +417,16 @@ details > summary::-webkit-details-marker { display: none; }
 .hero-phone { display: none; }
 @media (min-width: 1024px) {
   .hero-phone {
-    /* Big hand: bleeds off the right edge and below the fold so the phone can be tall without
-       reaching the headline. Width is also capped by viewport height so the phone stays in view. */
-    /* Placed from the viewport height, not the section's, so taller hero copy never pushes it down. */
-    --hp-w: min(clamp(400px, 44vw, 760px), calc((100svh - 30px) * 0.74));
-    display: block; position: absolute; right: -2vw;
+    /* Big hand: bleeds below the fold so the phone can be tall without reaching the headline.
+       Sized and placed from the hero's capped height (--hero-h), so tall screens don't leave the
+       phone stranded at the bottom. Horizontally it follows the content column on wide screens
+       (identical to the old window-edge placement up to ~1920 px), so it never drifts away from the copy. */
+    --hero-h: min(100svh, 1000px);
+    --hp-w: min(clamp(400px, 44vw, 760px), calc((var(--hero-h) - 30px) * 0.74));
+    display: block; position: absolute;
+    right: max(-2vw, calc((100vw - var(--container)) / 2 - 378px));
     width: var(--hp-w);
-    top: calc(107svh - var(--hp-w) / 0.74);
+    top: calc(var(--hero-h) * 1.07 - var(--hp-w) / 0.74);
   }
   /* Intro on the inner element: GSAP's scroll fade owns the wrapper's transform. */
   .hero-phone .pih { width: 100%; animation: reel-in 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both; }

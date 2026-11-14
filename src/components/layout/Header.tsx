@@ -74,6 +74,9 @@ export function Header() {
   const toggle = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  // Tone of the section under the header (top) and under the mobile dock (bottom).
+  const [tone, setTone] = useState<"dark" | "light" | "lime">("dark");
+  const [dockTone, setDockTone] = useState<"dark" | "light" | "lime">("dark");
   const lenis = useLenis();
 
   // The nav stays put; past the top it only gains a soft backdrop so it reads over content.
@@ -83,6 +86,36 @@ export function Header() {
   }, []);
 
   useEffect(() => setOpen(false), [pathname]);
+
+  useEffect(() => {
+    const toneAt = (y: number) => {
+      for (const el of document.elementsFromPoint(window.innerWidth / 2, y)) {
+        if (el.closest("header, nav.dock, #mobile-menu")) continue;
+        const sec = el.closest(".tone-light, .on-paper, .tone-lime");
+        return sec ? (sec.classList.contains("tone-lime") ? "lime" : "light") : "dark";
+      }
+      return "dark";
+    };
+    let raf = 0;
+    const check = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        setTone(toneAt(36));
+        setDockTone(toneAt(window.innerHeight - 36));
+      });
+    };
+    check();
+    const late = window.setTimeout(check, 400); // after the route's content settles
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.clearTimeout(late);
+      window.removeEventListener("scroll", check);
+      window.removeEventListener("resize", check);
+    };
+  }, [pathname]);
+  const toneClass = (t: string) => (t === "light" ? "tokens-light" : t === "lime" ? "tokens-lime" : "");
 
   useEffect(() => {
     const m = menu.current;
@@ -126,7 +159,7 @@ export function Header() {
         Skip to content
       </a>
       <header
-        className={`site-header fixed inset-x-0 top-0 z-50 ${scrolled && !open ? "is-scrolled" : ""}`}
+        className={`site-header fixed inset-x-0 top-0 z-50 text-[var(--ink)] ${scrolled && !open ? "is-scrolled" : ""} ${open ? "" : toneClass(tone)}`}
       >
         <div className="container-x flex h-[72px] items-center justify-between gap-6">
           <Logo className="relative z-[60]" />
@@ -177,7 +210,7 @@ export function Header() {
       </div>
 
       {/* Mobile and tablet: a floating dock with the main sections and the full menu. */}
-      <nav aria-label="Quick" className="dock lg:hidden">
+      <nav aria-label="Quick" className={`dock lg:hidden ${open ? "" : toneClass(dockTone)}`}>
         <ul className="dock-pill">
           {dock.map((d) => {
             const on = !open && (d.href === "/" ? pathname === "/" : isActive(d.href));

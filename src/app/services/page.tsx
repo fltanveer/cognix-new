@@ -21,7 +21,7 @@ export default function ServicesPage() {
         lead="Most clients start with automation and add the rest only when it helps. Each service has a fixed first step, a clear deliverable and a price signal before you talk to us."
         crumbs={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }]}
       />
-      <section className="pb-[var(--section)]">
+      <section className="section tone-light">
         <div className="container-x">
           <ServicesList />
         </div>

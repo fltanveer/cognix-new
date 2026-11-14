@@ -51,7 +51,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      <section className="section border-y border-[var(--line)] bg-[var(--surface)]" aria-labelledby="deliv-title">
+      <section className="section tone-light" aria-labelledby="deliv-title">
         <div className="container-x grid gap-12 lg:grid-cols-2">
           <div>
             <SplitHeading id="deliv-title" text="What you get" className="t-d2" />
@@ -94,7 +94,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
       <Faq items={s.faqs} title={`${s.name}: questions`} />
 
-      <section className="pb-8" aria-label="Other services">
+      <section className="tone-light -mt-px pb-14" aria-label="Other services">
         <div className="container-x">
           <div className="text-[14px] text-[var(--ink-3)]">Other services</div>
           <ul className="mt-4 flex flex-wrap gap-3">

@@ -32,7 +32,7 @@ export default function Home() {
       <ProofStrip />
       <Rewire art={<RewireArt />} />
 
-      <section className="section" aria-labelledby="services-title">
+      <section className="section tone-light" aria-labelledby="services-title">
         <div className="container-x">
           <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
             <SplitHeading id="services-title" text="What we do, in the order clients usually need it." className="t-d2 max-w-[20ch]" />
@@ -46,7 +46,7 @@ export default function Home() {
 
       <WorkRail />
 
-      <section className="section" aria-labelledby="run-title">
+      <section className="section tone-light" aria-labelledby="run-title">
         <div className="container-x grid items-center gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-6">
           <div>
             <SplitHeading id="run-title" text="Four photos in. A signed-off report out." className="t-d2 max-w-[14ch]" />

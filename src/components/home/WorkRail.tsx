@@ -51,7 +51,7 @@ export function WorkRail() {
 
         <div ref={track} className="mt-12 grid gap-14 lg:mt-16 lg:flex lg:gap-10 lg:pr-[20vw]">
           {flagships.map((c, i) => (
-            <div key={c.slug} data-card="" className="lg:w-[46vw] lg:max-w-[720px] lg:shrink-0">
+            <div key={c.slug} data-card="" className="rail-card lg:shrink-0">
               <CaseCard c={c} priority={i === 0} />
             </div>
           ))}

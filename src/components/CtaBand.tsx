@@ -16,7 +16,7 @@ export function CtaBand({
   source?: string;
 }) {
   return (
-    <section className="section relative overflow-hidden" aria-labelledby="cta-band-title">
+    <section className="section tone-lime relative overflow-hidden" aria-labelledby="cta-band-title">
       <div className="pointer-events-none absolute inset-0 blueprint opacity-70" aria-hidden="true" />
       <div className="container-x relative">
         <div className="grid items-end gap-10 md:grid-cols-[1.5fr_1fr]">

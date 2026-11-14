@@ -32,7 +32,7 @@ export default function PricingPage() {
         crumbs={[{ label: "Home", href: "/" }, { label: "Pricing", href: "/pricing" }]}
         wide
       />
-      <section className="pb-[var(--section)]">
+      <section className="section tone-light">
         <div className="container-x">
           <Reveal variant="rise" stagger={0.1} className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {tiers.map((t) => (

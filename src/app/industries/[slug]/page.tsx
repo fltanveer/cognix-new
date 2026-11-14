@@ -43,7 +43,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
           </Reveal>
         </div>
       </section>
-      <section className="section border-t border-[var(--line)]" aria-labelledby="proof">
+      <section className="section tone-light" aria-labelledby="proof">
         <div className="container-x">
           <h2 id="proof" className="t-d2">
             Relevant work

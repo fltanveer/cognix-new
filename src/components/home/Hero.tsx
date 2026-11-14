@@ -67,7 +67,7 @@ export function Hero() {
   );
 
   return (
-    <section ref={root} className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden pb-8 pt-28 md:pb-10" aria-labelledby="hero-title">
+    <section ref={root} className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden pb-8 pt-28 md:pb-10 lg:min-h-[min(100svh,1000px)]" aria-labelledby="hero-title">
       <SignalField triggerRef={root} className="absolute inset-0" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[var(--canvas)] to-transparent" aria-hidden="true" />
 
@@ -126,7 +126,7 @@ export function Hero() {
                     <span className="relative flex items-center justify-between gap-3 text-[12.5px] text-[var(--ink-2)]">
                       <span className="flex min-w-0 items-center gap-2">
                         <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent)]" aria-hidden="true" />
-                        <span className="truncate">
+                        <span className="leading-tight">
                           {r.client} · {r.industry}
                         </span>
                       </span>

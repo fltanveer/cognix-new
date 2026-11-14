@@ -57,7 +57,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
         </div>
       </section>
 
-      <section className="section border-t border-[var(--line)]" aria-labelledby="form-title">
+      <section className="section tone-light" aria-labelledby="form-title">
         <div className="container-x grid gap-10 lg:grid-cols-[0.7fr_1.3fr]">
           <div>
             <h2 id="form-title" className="t-d2 max-w-[12ch]">

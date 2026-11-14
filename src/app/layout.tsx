@@ -74,7 +74,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
-      <body>
+      {/* Extensions such as Grammarly add attributes to <body> before React loads; ignore only those. */}
+      <body suppressHydrationWarning>
         <SmoothScroll>
           <BookingProvider>
             <Header />

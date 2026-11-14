@@ -4,17 +4,13 @@
   padding: 28px 0 8px; isolation: isolate;
 }
 @media (min-width: 768px) { .idm-stage { grid-template-columns: auto minmax(0, 260px); justify-content: center; gap: 44px; } }
-.idm-glow {
-  position: absolute; z-index: -1; left: 50%; top: 52%; width: min(560px, 90%); aspect-ratio: 1; transform: translate(-60%, -50%);
-  border-radius: 999px; filter: blur(40px);
-  background: radial-gradient(closest-side, oklch(0.9 0.2 125 / 0.22), oklch(0.75 0.15 125 / 0.07) 55%, transparent);
-}
+.idm-glow { display: none; } /* the lime halo read as a grey smudge on paper */
 
 /* ---------- phone ---------- */
 .idm-phone {
   width: clamp(236px, 21vw, 284px); aspect-ratio: 9 / 19.2; padding: 7px; border-radius: 46px; container-type: inline-size;
   background: linear-gradient(160deg, #2a2e25, #0d0f0a 40%, #1a1d16);
-  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.1), 0 40px 80px -30px rgb(0 0 0 / 0.9), inset 0 1px 0 rgb(255 255 255 / 0.12);
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.1), inset 0 1px 0 rgb(255 255 255 / 0.12); /* no drop shadow: it muddies the light section */
 }
 .idm-screen {
   position: relative; height: 100%; overflow: hidden; border-radius: 39px; background: #0b0d08; color: #eef1e6;
@@ -137,13 +133,14 @@
 /* ---------- pipeline rail ---------- */
 .idm-rail { position: relative; display: flex; flex-direction: column; gap: 22px; width: 100%; max-width: 300px; margin: 0; padding: 0; list-style: none; }
 .idm-step { position: relative; display: flex; gap: 14px; align-items: flex-start; }
-.idm-step + .idm-step::before { content: ""; position: absolute; left: 10px; top: -22px; height: 22px; width: 1px; background: var(--line-strong); }
-.idm-step[data-state="done"] + .idm-step::before, .idm-step[data-state="done"] + .idm-step[data-state="now"]::before { background: var(--accent); }
+.idm-step + .idm-step::before { content: ""; position: absolute; left: 9.5px; top: -22px; height: 22px; width: 2px; border-radius: 2px; background: var(--line-strong); }
+/* accent-text: lime on dark sections, deep olive on light ones, so the progress stays visible on paper */
+.idm-step[data-state="done"] + .idm-step::before, .idm-step[data-state="done"] + .idm-step[data-state="now"]::before { background: var(--accent-text); }
 .idm-node { position: relative; width: 21px; height: 21px; flex: none; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--canvas); transition: border-color 0.3s, background-color 0.3s; }
-.idm-step[data-state="now"] .idm-node { border-color: var(--accent); }
-.idm-step[data-state="now"] .idm-node::after { content: ""; position: absolute; inset: 5px; border-radius: 999px; background: var(--accent); animation: idm-pulse 1s ease-in-out infinite; }
+.idm-step[data-state="now"] .idm-node { border: 2px solid var(--accent-text); }
+.idm-step[data-state="now"] .idm-node::after { content: ""; position: absolute; inset: 4px; border-radius: 999px; background: var(--accent-text); animation: idm-pulse 1s ease-in-out infinite; }
 @keyframes idm-pulse { 50% { transform: scale(0.6); opacity: 0.6; } }
-.idm-step[data-state="done"] .idm-node { border-color: transparent; background: var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230e1104' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center / 62% no-repeat; }
+.idm-step[data-state="done"] .idm-node { border: 1.5px solid var(--accent-text); background: var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230e1104' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center / 62% no-repeat; }
 .idm-step b { font-size: 15px; font-weight: 500; color: var(--ink-3); transition: color 0.3s; }
 .idm-step em { font-style: normal; font-size: 13px; color: var(--ink-3); opacity: 0.7; transition: opacity 0.3s; }
 .idm-step[data-state="now"] b, .idm-step[data-state="done"] b { color: var(--ink); }

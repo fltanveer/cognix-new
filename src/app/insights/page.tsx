@@ -65,7 +65,7 @@ export default function InsightsPage() {
         </div>
       </section>
 
-      <section className="section border-t border-[var(--line)] bg-[var(--surface)]" aria-labelledby="guide-title">
+      <section className="section tone-light" aria-labelledby="guide-title">
         <div className="container-x grid gap-10 lg:grid-cols-2 lg:items-center">
           <div>
             <h2 id="guide-title" className="t-d2 max-w-[16ch]">

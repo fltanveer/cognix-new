@@ -3,7 +3,7 @@ import { BookButton } from "@/components/booking/Booking";
 
 export default function NotFound() {
   return (
-    <section className="relative flex min-h-[80svh] items-end overflow-hidden pb-20 pt-40">
+    <section className="relative flex min-h-[min(80svh,640px)] items-end overflow-hidden pb-20 pt-40">
       <div className="pointer-events-none absolute inset-0 blueprint" aria-hidden="true" />
       <div className="container-x relative">
         <p className="font-mono text-[13px] text-[var(--ink-3)]">404 · route not connected</p>

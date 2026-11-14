@@ -65,7 +65,7 @@ function FaceCard({ variant }: { variant: 1 | 2 | 3 }) {
             </span>
           </div>
           <div className="pf-face-panel">
-            <div className="pf-strong">Priya N.</div>
+            <div className="pf-strong">Emily N.</div>
             <div className="pf-muted pf-small">Ops lead · Boston</div>
             <div className="pf-face-stats">
               <span>
@@ -159,7 +159,7 @@ function Feed() {
           <Avatar n={3} />
           <div className="min-w-0 flex-1">
             <div>
-              <span className="pf-strong">Hana K.</span> <span className="pf-muted">flagged</span> invoice #2210
+              <span className="pf-strong">Sarah K.</span> <span className="pf-muted">flagged</span> invoice #2210
             </div>
             <div className="pf-muted pf-small">Amount differs from PO by $184.20 · 2m</div>
           </div>

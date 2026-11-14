@@ -51,7 +51,7 @@ export function Industries() {
   );
 
   return (
-    <section ref={root} className="section" aria-labelledby="ind-title">
+    <section ref={root} className="section tone-light" aria-labelledby="ind-title">
       <div className="container-x">
         <h2 id="ind-title" className="t-d2 max-w-[18ch]">
           Who we help. Three industries where we have the proof.

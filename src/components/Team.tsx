@@ -24,7 +24,7 @@ export function Team({ title = "The people you’ll actually work with." }: { ti
   );
 
   return (
-    <section ref={root} className="section" aria-labelledby="team-title">
+    <section ref={root} className="section tone-light" aria-labelledby="team-title">
       <div className="container-x">
         <h2 id="team-title" className="t-d2 max-w-[16ch]">
           {title}
