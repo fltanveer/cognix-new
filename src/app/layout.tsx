@@ -8,6 +8,8 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CursorLabel } from "@/components/motion/CursorLabel";
 import { ButtonGlow } from "@/components/motion/ButtonGlow";
+import { SiteChrome } from "@/components/layout/SiteChrome";
+import { SanityLive } from "@/sanity/live";
 
 const onest = Onest({ variable: "--font-onest", subsets: ["latin"], display: "swap" });
 const mono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap", weight: ["400", "500"] });
@@ -78,13 +80,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body suppressHydrationWarning>
         <SmoothScroll>
           <BookingProvider>
-            <Header />
-            <main id="main">{children}</main>
-            <Footer />
-            <CursorLabel />
-            <ButtonGlow />
+            <SiteChrome header={<Header />} footer={<Footer />} extras={<><CursorLabel /><ButtonGlow /></>}>
+              {children}
+            </SiteChrome>
           </BookingProvider>
         </SmoothScroll>
+        <SanityLive />
       </body>
     </html>
   );

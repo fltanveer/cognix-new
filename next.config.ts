@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-import { posts } from "./src/content/posts";
+import { legacyPostRedirects } from "./src/content/legacy-redirects";
 
 // 301s from the old WordPress URLs so existing links and rankings carry over.
 const caseMap: Record<string, string> = {
@@ -27,7 +27,7 @@ const nextConfig: NextConfig = {
       { source: "/case-studies/:slug", destination: "/work/:slug", permanent: true },
       { source: "/ai-transformation", destination: "/pricing", permanent: true },
       { source: "/blog", destination: "/insights", permanent: true },
-      ...posts.map((p) => ({ source: `/${p.oldSlug}`, destination: `/insights/${p.slug}`, permanent: true })),
+      ...legacyPostRedirects.map((r) => ({ source: `/${r.from}`, destination: `/insights/${r.to}`, permanent: true })),
       { source: "/category/:path*", destination: "/insights", permanent: true },
       { source: "/tag/:path*", destination: "/insights", permanent: true },
       { source: "/author/:path*", destination: "/about", permanent: true },

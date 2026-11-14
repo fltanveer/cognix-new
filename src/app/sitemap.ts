@@ -1,8 +1,11 @@
 import type { MetadataRoute } from "next";
 import { site, services, cases, industries } from "@/content/site";
-import { posts } from "@/content/posts";
+import { getSitemapPosts } from "@/content/insights";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export const revalidate = 3600;
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const posts = await getSitemapPosts();
   const u = (p: string) => `${site.url}${p}`;
   const stat = ["", "/services", "/work", "/industries", "/pricing", "/about", "/insights", "/contact", "/privacy", "/terms", "/data-handling", "/accessibility"];
   return [

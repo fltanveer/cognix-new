@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { posts } from "@/content/posts";
+import { getPosts } from "@/content/insights";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/motion/Reveal";
 import { GuideForm } from "@/components/booking/GuideForm";
@@ -13,14 +13,15 @@ export const metadata: Metadata = {
 
 const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 
-export default function InsightsPage() {
-  const [lead, ...rest] = posts;
+export default async function InsightsPage() {
+  const [lead, ...rest] = await getPosts();
   return (
     <>
       <PageHero art="insights" title="Insights" lead="Field notes on AI adoption, automation, product design and getting found." crumbs={[{ label: "Home", href: "/" }, { label: "Insights", href: "/insights" }]} />
 
       <section className="pb-[var(--section)]">
         <div className="container-x">
+          {lead ? (
           <Reveal variant="clip">
             <Link href={`/insights/${lead.slug}`} data-cursor="Read" className="group grid gap-8 md:grid-cols-[1.3fr_1fr] md:items-end">
               <div className="media-frame aspect-[16/10]">
@@ -38,6 +39,7 @@ export default function InsightsPage() {
               </div>
             </Link>
           </Reveal>
+          ) : null}
 
           <ul className="mt-20 border-t border-[var(--line-strong)]">
             {rest.map((p) => (
@@ -45,7 +47,7 @@ export default function InsightsPage() {
                 <Link href={`/insights/${p.slug}`} className="group grid gap-4 py-8 md:grid-cols-[200px_1fr_160px] md:items-center md:gap-10">
                   <div className="media-frame aspect-[4/3] w-full md:w-[200px]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={p.cover} alt="" loading="lazy" className="transition-transform duration-700 group-hover:scale-[1.06]" />
+                    <img src={p.thumb} alt="" loading="lazy" className="transition-transform duration-700 group-hover:scale-[1.06]" />
                   </div>
                   <div>
                     <div className="text-[13.5px] text-[var(--ink-3)]">{p.category}</div>

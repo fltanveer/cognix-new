@@ -47,7 +47,8 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (prefersReducedMotion()) return;
+    // The Studio (/studio) scrolls its own panes; smooth-scrolling the page would fight it.
+    if (prefersReducedMotion() || window.location.pathname.startsWith("/studio")) return;
     const instance = new Lenis({ duration: 1.15, easing: (t) => 1 - Math.pow(1 - t, 4), smoothWheel: true });
     instance.on("scroll", ScrollTrigger.update);
     const tick = (time: number) => instance.raf(time * 1000);
