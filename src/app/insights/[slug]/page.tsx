@@ -37,7 +37,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     "@type": "Article",
     headline: p.title,
     datePublished: p.date,
-    image: p.cover.startsWith("http") ? p.cover : `${site.url}${p.cover}`,
+    image: p.cover,
     author: { "@type": "Organization", name: "Cognixlab" },
     publisher: { "@id": `${site.url}/#org` },
   };
@@ -67,13 +67,9 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
       <div className="on-paper mt-[-120px] pb-[var(--section)] pt-[200px]">
         <div className="container-x grid max-w-[1180px] gap-14 lg:grid-cols-[1fr_280px]">
-          {p.body ? (
-            <div className="prose-c max-w-[68ch]">
-              <PostBody value={p.body} />
-            </div>
-          ) : (
-            <div className="prose-c max-w-[68ch]" dangerouslySetInnerHTML={{ __html: p.html ?? "" }} />
-          )}
+          <div className="prose-c max-w-[68ch]">
+            <PostBody value={p.body} />
+          </div>
           <aside className="lg:sticky lg:top-28 lg:self-start">
             <div className="rounded-[var(--r-card)] border border-[var(--paper-line)] bg-[var(--paper-2)] p-6">
               {p.cta === "visibility" ? (

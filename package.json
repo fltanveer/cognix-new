@@ -27,17 +27,13 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@iconify-json/solar": "^1.2.13",
-    "@portabletext/block-tools": "^6.0.7",
-    "@sanity/schema": "^6.23.0",
     "@tailwindcss/postcss": "^4",
-    "@types/jsdom": "^30.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/three": "^0.187.0",
     "eslint": "^9",
     "eslint-config-next": "15.5.28",
-    "jsdom": "^31.0.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
