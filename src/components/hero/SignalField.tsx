@@ -81,6 +81,24 @@ void main() {
   float glow = exp(-abs(f) * 9.0) * 0.35;
   col += uAccent * (line + glow) * lit * mask * 1.25;
 
+  // Live pulses: every lane runs its own random timer, so at any moment only a few lanes carry a short
+  // lime pulse (bright head, short tail) along their curve, each with its own start, speed and direction.
+  float period = 20.0 + 18.0 * hash(id * 2.31 + 4.0);
+  float cyc = mod(uTime + hash(id * 7.77) * period, period);
+  float dur = 10.0 + 6.0 * hash(id * 4.41);
+  float headT = cyc / dur;
+  float runOn = step(cyc, dur);
+  float xs = hash(id * 6.13) > 0.5 ? uv.x : 1.0 - uv.x;
+  float dx = (headT * 1.3 - 0.15) - xs;               // > 0: behind the head
+  float trail = step(0.0, dx) * pow(1.0 - smoothstep(0.0, 0.14, dx), 2.0);
+  float head = exp(-dx * dx * 3000.0);
+  float env = smoothstep(0.0, 0.12, headT) * (1.0 - smoothstep(0.88, 1.0, headT));
+  float pulse = runOn * env * (trail * 0.5 + head * 0.6) * 0.32;
+  // Kept out from behind the copy (left, lower area); full strength around the phone.
+  float idleMask = edge * mix(0.08, 1.0, smoothstep(0.42, 0.9, uv.x * 0.9 + uv.y * 0.55));
+  float halo = exp(-abs(f) * 8.0) * head * 0.35;
+  col += uAccent * (line + glow * 0.4 + halo) * pulse * idleMask;
+
   gl_FragColor = vec4(col, 1.0);
 }
 `;

@@ -10,6 +10,7 @@ import { BookButton } from "@/components/booking/Booking";
 import { gsap, useGSAP, prefersReducedMotion, release } from "@/lib/gsap";
 import { site } from "@/content/site";
 import { PhoneInHand } from "@/components/phone/PhoneInHand";
+import { MapPin } from "lucide-react";
 
 // Three.js loads after first paint so the headline and CTA aren't blocked by the shader.
 const SignalField = dynamic(() => import("@/components/hero/SignalField").then((m) => m.SignalField), { ssr: false });
@@ -77,9 +78,14 @@ export function Hero() {
       </div>
 
       <div data-hero-copy="" className="container-x relative">
-        <p data-intro="" data-pending="" className="mb-6 flex items-center gap-2.5 text-[15px] text-[var(--ink-2)]">
-          <span className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--ink)]" />
-          AI & digital solutions studio · Massachusetts, USA
+        <p data-intro="" data-pending="" className="hero-badge mb-6">
+          <span className="hero-badge-tag">AI & digital solutions studio
+          </span>
+          <span className="hero-badge-loc">
+            <MapPin aria-hidden="true" />
+            <span className="hero-badge-long">Massachusetts, USA</span>
+            <span className="hero-badge-short">MA, USA</span>
+          </span>
         </p>
 
         <SplitHeading as="h1" id="hero-title" trigger="load" delay={0.25} stagger={0.06} text="Your team is doing work your software should be doing." className="t-hero max-w-[12.5ch] hero-fit" />

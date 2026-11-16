@@ -414,6 +414,40 @@ footer a.social-btn::after { display: none; } /* already 44px; no extra hit area
 @media (prefers-reduced-motion: reduce) { .proof-card, .proof-card-img, .proof-card-arrow { transition: none; } }
 
 /* Hero phone: hand + live app, anchored to the hero's bottom edge (desktop only). */
+/* Hero eyebrow: lime studio tag + location, in one outlined pill. */
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 4px; max-width: 100%; padding: 4px 14px 4px 4px; border-radius: 999px;
+  font-size: 14.5px; line-height: 1.2; color: var(--ink-2);
+  background: color-mix(in srgb, var(--surface) 70%, transparent); border: 1px solid var(--line-strong);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+/* Shimmer: a bright arc travels around the pill's border. A conic gradient on a ring masked to 1px. */
+@property --hb-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+.hero-badge { position: relative; }
+.hero-badge::before {
+  content: ""; position: absolute; inset: -1px; padding: 1px; border-radius: inherit; pointer-events: none;
+  background: conic-gradient(from var(--hb-angle), transparent 0 62%, color-mix(in srgb, var(--accent) 55%, transparent) 74%, #f4ffd0 82%, var(--accent) 88%, transparent 98%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: hb-spin 4.5s linear infinite;
+}
+@keyframes hb-spin { to { --hb-angle: 360deg; } }
+@media (prefers-reduced-motion: reduce) { .hero-badge::before { animation: none; --hb-angle: 300deg; } }
+.hero-badge-tag {
+  padding: 7px 13px; border-radius: 999px; white-space: nowrap; font-weight: 500;
+  background: var(--accent); color: var(--accent-ink);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent), 0 6px 22px -8px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+.hero-badge-loc { display: inline-flex; align-items: center; gap: 6px; padding-left: 8px; white-space: nowrap; color: var(--ink); }
+.hero-badge-loc svg { width: 15px; height: 15px; color: var(--accent); flex: none; }
+.hero-badge-short { display: none; }
+@media (max-width: 370px) { .hero-badge-long { display: none; } .hero-badge-short { display: inline; } }
+@media (max-width: 400px) {
+  .hero-badge { font-size: 13px; padding-right: 11px; }
+  .hero-badge-tag { padding: 6px 10px; }
+  .hero-badge-loc { padding-left: 5px; gap: 4px; }
+  .hero-badge-loc svg { width: 13px; height: 13px; }
+}
 .hero-phone { display: none; }
 @media (min-width: 1024px) {
   .hero-phone {
