@@ -5,10 +5,16 @@ import { useGSAP, ScrollTrigger } from "@/lib/gsap";
 import "./rewire-iso.css";
 
 /**
- * "Something in your operations isn't working": an isometric patch bay (anatomy iso kit, generated at
+ * The problem section ("Your team re-types the same data into four tools"): an isometric patch bay (anatomy iso kit, generated at
  * build time into rewire-figure.ts) shown in its connected state: every tool module wired back to one
  * lit bus. Status lights stay on and a signal runs along the bus while the section is on screen.
  */
+const symptoms = [
+  "The same record is typed into two or more systems.",
+  "Work stalls until someone remembers to send a follow-up.",
+  "Reports are assembled by hand from exports every week.",
+];
+
 export function Rewire({ art }: { art: ReactNode }) {
   const root = useRef<HTMLElement>(null);
 
@@ -33,36 +39,36 @@ export function Rewire({ art }: { art: ReactNode }) {
   return (
     <section ref={root} className="relative overflow-hidden" aria-labelledby="rewire-title">
       <div className="container-x grid items-center gap-10 py-[var(--section)] lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-6">
-        <div className="max-w-[520px]">
+        <div className="max-w-[540px]">
           <h2 id="rewire-title" className="t-d2">
-            Something in your operations isn’t working.
+            Your team <span className="whitespace-nowrap">re-types</span> the same data into four tools.
           </h2>
           <div className="mt-6 space-y-4 text-[var(--ink-2)]">
             <p>
-              If your team still relies on manual work, disconnected tools and complicated workflows, the problem isn’t effort. It’s
-              infrastructure.
+              A request lands in the inbox. Someone copies it into a spreadsheet, enters it again in the CRM, then chases an approval in
+              chat. Nobody on your team is slow. The tools don’t talk to each other, so your people carry the data between them.
             </p>
             <p>
-              Most growing companies reach a point where their technology can’t keep up with how the business actually operates. We assess
-              your operations, redesign the workflows that leak time, and connect the tools your team depends on.
+              That is an infrastructure problem, not an effort problem. Hiring more people makes it bigger. Connecting the tools makes it go
+              away, one workflow at a time.
             </p>
           </div>
-          <p className="mt-8 border-l border-[var(--accent)] pl-4 text-[19px] leading-snug text-[var(--ink)]">
-            The result: a business that runs faster, cleaner, and with far less friction.
-          </p>
+          <ul className="mt-8 border-t border-[var(--line)]" aria-label="Signs this is happening">
+            {symptoms.map((t) => (
+              <li key={t} className="flex gap-3 border-b border-[var(--line)] py-3.5 text-[var(--ink)]">
+                <span className="mt-[0.6em] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent-text)]" aria-hidden="true" />
+                {t}
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* No card: the rack sits straight on the page and fades into it at the edges. */}
         <figure className="relative lg:-mr-[calc(var(--gutter)+2vw)]">
-          <div className="flex flex-col gap-1.5 text-[13px] sm:flex-row sm:items-center sm:justify-between sm:gap-4 lg:pr-[calc(var(--gutter)+2vw)]">
-            <span className="shrink-0 text-[var(--ink-3)]">Fig 1 · Your tools, connected</span>
-            <span className="flex items-center gap-2 whitespace-nowrap font-mono text-[12px] text-[var(--ink)]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" aria-hidden="true" /> 0 hand-offs · one connected bus
-            </span>
-          </div>
+          <div className="text-[13px] text-[var(--ink-3)] lg:pr-[calc(var(--gutter)+2vw)]">Fig 1 · Your tools, connected</div>
           {art}
           <figcaption className="mt-1 text-[13px] text-[var(--ink-3)] lg:pr-[calc(var(--gutter)+2vw)]">
-            Illustrative. Inbox, spreadsheets, team chat, forms, ledger and CRM, wired to one connected bus.
+            One connected flow instead of six tools and a person in the middle.
           </figcaption>
         </figure>
       </div>

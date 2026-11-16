@@ -25,7 +25,16 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
   const panel = useRef<HTMLDivElement>(null);
   const [loaded, setLoaded] = useState(false);
   const [ready, setReady] = useState(false);
+  const [slow, setSlow] = useState(false);
   const lenis = useLenis();
+
+  // If the calendar hasn't loaded after 8 s (blocked by a privacy setting, a content blocker or a slow
+  // network), swap the spinner for the two ways to book without it.
+  useEffect(() => {
+    if (!loaded || ready) return;
+    const t = window.setTimeout(() => setSlow(true), 8000);
+    return () => window.clearTimeout(t);
+  }, [loaded, ready]);
 
   const open = useCallback(
     (source?: string) => {
@@ -96,11 +105,27 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
               </button>
             </div>
             <div className="relative h-[min(72vh,700px)] bg-[var(--surface)]">
-              {loaded && !ready && (
+              {loaded && !ready && !slow && (
                 <div className="absolute inset-0 grid place-items-center text-[15px] text-[var(--ink-3)]">
                   <span className="flex items-center gap-3">
                     <span className="h-2 w-2 animate-pulse rounded-full bg-[var(--accent)]" /> Loading calendar
                   </span>
+                </div>
+              )}
+              {loaded && !ready && slow && (
+                <div className="absolute inset-0 z-[1] grid place-items-center p-6 text-center" role="status">
+                  <div className="max-w-[40ch]">
+                    <p className="text-[18px] text-[var(--ink)]">The calendar is taking too long to load.</p>
+                    <p className="mt-2 text-[15px] text-[var(--ink-2)]">A browser setting or content blocker may be stopping it. You can still book:</p>
+                    <div className="mt-5 flex flex-wrap justify-center gap-3">
+                      <a className="btn btn-primary btn-sm" href={site.booking.url} target="_blank" rel="noopener">
+                        Open the calendar
+                      </a>
+                      <a className="btn btn-ghost btn-sm" href={`mailto:${site.email}?subject=Workflow%20Review`}>
+                        Email us instead
+                      </a>
+                    </div>
+                  </div>
                 </div>
               )}
               {loaded && (

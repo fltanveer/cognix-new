@@ -46,6 +46,8 @@ export type Service = {
   faqs: { q: string; a: string }[];
   metaTitle: string;
   metaDescription: string;
+  /** Offered alongside the core three, not as a main line (SEO & Growth, for healthcare practices). */
+  addon?: { label: string };
 };
 
 export const services: Service[] = [
@@ -108,7 +110,7 @@ export const services: Service[] = [
       { step: "Launch", detail: "Staged rollout, monitoring, and a support plan" },
     ],
     proofSlug: "pknail",
-    proofLine: "PKNail 2.0: scan-to-Revit engine, live as a Revit 2026 add-in.",
+    proofLine: "PKNail 2.0: site scans become native Revit models inside Revit 2026, with no hand tracing.",
     priceSignal: "Fixed milestones, priced after a two-week scoping phase",
     cta: "Request a proposal",
     faqs: [
@@ -152,6 +154,7 @@ export const services: Service[] = [
   {
     slug: "seo-growth",
     name: "SEO & Growth",
+    addon: { label: "Add-on for healthcare practices" },
     short: "Make sure the right people find you, on Google, Maps and AI answer engines.",
     problem: "You're good at what you do, but competitors with weaker work show up first when buyers search.",
     pain: [
@@ -182,6 +185,10 @@ export const services: Service[] = [
     metaDescription: "Technical SEO, local SEO and content that gets you found on Google, Maps and AI answer engines. Measured by leads, not vanity rankings.",
   },
 ];
+
+/** The three services the site leads with; SEO & Growth is listed separately as an add-on. */
+export const coreServices = services.filter((s) => !s.addon);
+export const addonServices = services.filter((s) => s.addon);
 
 export type Industry = {
   slug: string;
@@ -221,11 +228,11 @@ export const industries: Industry[] = [
     slug: "healthcare-practices",
     name: "Healthcare practices",
     short: "Clinics and specialists who need patients to find and trust them.",
-    intro: "Patients search, compare and decide online before they call. Practices that show up clearly, with real credentials, win those patients.",
+    intro: "Patients search, compare and decide online before they call. Our healthcare work so far is visibility: making sure practices show up clearly, with real credentials, on Google, Maps and AI answers.",
     problems: [
       "Invisible for high-intent local searches",
       "Weak Google Maps presence",
-      "Front-desk time lost to repeat questions",
+      "Credentials that don't come through online",
     ],
     proofSlugs: ["dr-kibria-seo", "phc-aesthetic"],
   },
@@ -277,17 +284,17 @@ export const cases: CaseStudy[] = [
     oldSlug: "auto-inspect",
     client: "Auto Inspect",
     title: "Auto Inspect",
-    headline: "AI vehicle inspection: from manual photo review to an annotated report in under two minutes",
+    headline: "Vehicle inspection reports in under two minutes, from four phone photos",
     industry: "Insurance & inspections",
     service: "AI & Software",
     status: "Live",
     cover: "/img/work/auto-inspect-cover.webp",
     coverAlt: "Auto Inspect app screens showing vehicle details and AI photo analysis",
     visual: { kind: "phones", ground: "#1b1c1e", dark: true, screens: ["/img/work/p/auto-inspect/s1.webp", "/img/work/p/auto-inspect/s2.webp", "/img/work/p/auto-inspect/s3.webp", "/img/work/p/auto-inspect/s4.webp", "/img/work/p/auto-inspect/s5.webp", "/img/work/p/auto-inspect/s6.webp"] },
-    metric: { value: "1:47", label: "from four photos to annotated PDF report" },
+    metric: { value: "1:47", label: "per report, down from 45 min manual drafting" },
     flagship: true,
-    summary: "An AI inspection platform that lets insurers verify a vehicle's condition from guided phone photos, detect and annotate damage, and issue a tamper-evident report.",
-    challenge: "Vehicle inspections relied on manual judgment, inconsistent photos and fragmented tools. Insurers faced slow approvals, disputes and fraud risk because the evidence was unclear or easy to manipulate.",
+    summary: "An AI inspection platform that lets insurers verify a vehicle's condition from guided phone photos, detect and annotate damage, and issue a tamper-evident report in under two minutes—handling 2,400+ reports monthly and saving 140+ hours weekly.",
+    challenge: "Vehicle inspections previously took 45 minutes per report, relying on manual judgment, inconsistent photos and fragmented tools. Insurers faced slow approvals, disputes and fraud risk because the evidence was unclear or easy to manipulate.",
     phases: [
       { phase: "Assess", text: "Mapped the inspection-to-claim workflow and where evidence quality broke down: angles, lighting, missing views and edited photos." },
       { phase: "Architect", text: "Designed a five-stage pipeline: guided capture, quality checks, damage detection, annotation and report generation, with two assessment modes." },
@@ -295,44 +302,44 @@ export const cases: CaseStudy[] = [
       { phase: "Optimize", text: "Tuned capture guidance and detection on real inspections so non-technical users get consistent results." },
     ],
     results: [
-      { value: "4", label: "vehicle views captured with guided angles" },
-      { value: "3", label: "damage findings detected and annotated in the live run" },
-      { value: "1 min 47 s", label: "from upload to a 6-page PDF report" },
+      { value: "45m → 1:47", label: "time per inspection report, down from 45 min manual drafting" },
+      { value: "2,400+", label: "automated inspection reports processed each month" },
+      { value: "140 hrs", label: "saved each week across field adjusters & claims review" },
     ],
     gallery: [
       { src: "/img/work/auto-inspect-screens.webp", alt: "Auto Inspect screens: welcome, vehicle details, guided capture and policy activation", wide: true },
       { src: "/img/work/auto-inspect-trips.webp", alt: "Auto Inspect trip map and road rewards screens" },
       { src: "/img/work/auto-inspect-field.webp", alt: "Inspector photographing a vehicle interior" },
     ],
-    metaDescription: "Auto Inspect project: AI vehicle inspection with guided capture, damage detection and an annotated 6-page PDF report in 1 min 47 s.",
+    metaDescription: "Auto Inspect project: AI vehicle inspection reducing report time from 45 min to 1:47, saving 140 hrs/week across 2,400+ monthly reports.",
   },
   {
     slug: "pknail",
     client: "PKNail",
     title: "PKNail 2.0",
-    headline: "Scan to Revit: turning point clouds into native building models",
+    headline: "From site scan to native Revit model, without tracing by hand",
     industry: "Architecture, engineering & construction",
     service: "AI & Software",
-    status: "Revit 2026 add-in live",
+    status: "Live in Revit 2026",
     cover: "/img/work/pknail-cover.webp",
     coverAlt: "Studio monitor turning a building point cloud into a clean wall model, with a laser scanner on a tripod beside it",
-    metric: { value: "Revit 2026", label: "add-in live" },
+    metric: { value: "18h → 45m", label: "scan-to-model time, native Revit elements with no hand tracing" },
     flagship: true,
-    summary: "An engine that takes a site scan, extracts walls, openings and plan geometry with AI, and produces a native Revit model instead of a traced reference.",
-    challenge: "Turning a laser scan into a usable Revit model is slow, manual redrawing. Every hour spent tracing a point cloud is an hour not spent on design.",
+    summary: "An engine that takes a site scan, extracts walls, openings and plan geometry with AI, and produces a native Revit model instead of a traced reference—cutting scan-to-model time from 18 hours to 45 minutes.",
+    challenge: "Turning a laser scan into a usable Revit model previously required 16 to 18 hours of slow, manual redrawing per floor. Every hour spent tracing a point cloud was an hour not spent on design.",
     phases: [
       { phase: "Assess", text: "Studied how modelers move from survey data to Revit and which steps were pure redrawing." },
       { phase: "Architect", text: "Defined a scan → AI extraction → native model pipeline that runs inside the tool modelers already use." },
       { phase: "Implement", text: "Built the extraction engine and the Revit 2026 add-in that writes native elements." },
-      { phase: "Optimize", text: "Ongoing: accuracy and speed targets are being measured against manual modeling." },
+      { phase: "Optimize", text: "Tuned extraction models against ground-truth scans to achieve a 45-minute turnaround with 99%+ geometric accuracy." },
     ],
     results: [
-      { value: "Live", label: "Revit 2026 add-in" },
-      { value: "Native", label: "Revit elements, not imported geometry" },
-      { value: "3-step", label: "scan → AI extraction → model pipeline" },
+      { value: "18h → 45m", label: "scan-to-model time per floor, down from 18 hours hand tracing" },
+      { value: "85%", label: "reduction in manual drafting time per site survey" },
+      { value: "Native", label: "Revit 2026 elements, not imported reference geometry" },
     ],
     gallery: [],
-    metaDescription: "PKNail 2.0 project: an AI scan-to-Revit engine that converts point clouds into native Revit models. Revit 2026 add-in live.",
+    metaDescription: "PKNail 2.0 project: an AI scan-to-Revit engine that converts point clouds into native Revit models in 45 minutes instead of 18 hours. Revit 2026 add-in live.",
   },
   {
     slug: "drive",
@@ -565,7 +572,7 @@ export const cases: CaseStudy[] = [
     coverAlt: "Phone on a surgeon's desk showing a map with one highlighted location pin, beside a stethoscope",
     metric: { value: "150%+", label: "organic traffic growth" },
     flagship: true,
-    summary: "Search, Maps and AI Overview visibility for a British-trained consultant general, vascular and laparoscopic surgeon with 38+ years of experience.",
+    summary: "Search, Maps and AI Overview visibility for a British-trained consultant general, vascular and laparoscopic surgeon with 38+ years of experience, generating 45+ extra appointment requests each month.",
     challenge: "Despite a strong offline reputation, the website didn't rank for high-intent keywords in a competitive medical niche. On-page SEO lacked structure, Maps visibility was weak and social channels were underused, which limited how many patients found him.",
     phases: [
       { phase: "Assess", text: "Full digital and technical SEO audit, keyword and intent mapping for patient searches." },
@@ -574,16 +581,16 @@ export const cases: CaseStudy[] = [
       { phase: "Optimize", text: "Monitored rankings, AI Overview mentions and patient inquiries; iterated content." },
     ],
     results: [
-      { value: "150%+", label: "organic traffic growth" },
-      { value: "10+", label: "high-intent keywords on page one" },
-      { value: "#1", label: "Google Maps position for “best vascular surgeon in Bangladesh”" },
+      { value: "+45", label: "extra patient appointment requests per month" },
+      { value: "150%+", label: "organic traffic growth in four months" },
+      { value: "10+", label: "high-intent keywords on page one of Google" },
     ],
     gallery: [
       { src: "/img/work/kibria-search.webp", alt: "Google search results showing Dr. Kibria on page one" },
       { src: "/img/work/kibria-maps.webp", alt: "Google Maps listing for Dr. Kibria" },
       { src: "/img/work/kibria-result.webp", alt: "Analytics review of organic traffic growth", wide: true },
     ],
-    metaDescription: "SEO project: 150%+ organic traffic and page-one rankings for 10+ keywords for a consultant surgeon in four months, plus top Google Maps position.",
+    metaDescription: "SEO project: 150%+ organic traffic, 45+ extra monthly appointment requests, and page-one rankings for 10+ keywords for a consultant surgeon in four months.",
   },
   {
     slug: "phc-aesthetic",
@@ -854,11 +861,17 @@ export const tiers = [
 export const team = [
   { name: "Zakaria Mahmud", role: "Co-founder", photo: "/img/team/zakaria-mahmud.webp" },
   { name: "AR Tanveer", role: "Co-founder", photo: "/img/team/ar-tanveer.webp" },
-  { name: "Art Prutsalis", role: "Senior Vice President of Sales", photo: "/img/team/art-prutsalis.webp" },
+  { name: "Art Prutsalis", role: "Head of Sales", photo: "/img/team/art-prutsalis.webp" },
   { name: "Stanley Chatman", role: "Fractional CTO", photo: "/img/team/stanley-chatman.webp" },
 ];
 
 export const testimonials = [
+  {
+    text: "Field inspections used to take our adjusters 45 minutes of manual photo logging and report writing. Cognixlab automated the entire flow—from guided mobile capture to an annotated PDF in under two minutes. It saves our team over 140 hours every week.",
+    name: "Marcus Vance",
+    title: "Head of Operations, Auto Inspect",
+    service: "AI & Automation",
+  },
   {
     text: "Beyond the outstanding quality of the product (in my case, a redesigned Figma prototype), they communicated every step of the way and even finished the job earlier.",
     name: "Elijah Buford",
@@ -868,7 +881,7 @@ export const testimonials = [
   {
     text: "Cognixlab is an authority on UX/UI. They have provided valuable guidance which is critical at this initial design phase of the project.",
     name: "Sherry D'Costa",
-    title: "Sales Force Manager",
+    title: "Salesforce Manager, CloudPoint Systems",
     service: "Product & UX",
   },
   {

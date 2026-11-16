@@ -11,7 +11,7 @@ const check = (
 );
 
 /**
- * Cards drifting behind the phone and fingers: the jobs the site talks about (inspection reports,
+ * Cards floating in front of the phone and fingers: the jobs the site talks about (inspection reports,
  * invoice matching, CRM sync). Outer element floats on a loop, inner card owns its entrance,
  * so the two animations never fight over one transform.
  */
@@ -33,23 +33,29 @@ function Floats() {
         </div>
       </div>
       <div className="pih-fl pih-fl--crm">
-        <div className="pih-flc">
-          <span className="pih-flow">
+        <div className="pih-flc pih-flc--flow">
+          <span className="pih-step">
             <span className="pih-ico">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M4 6h16v12H4zM4 8l8 5 8-5" />
               </svg>
             </span>
-            <i />
+            <span>
+              <b>Web form</b>
+              <em>New lead received</em>
+            </span>
+          </span>
+          <span className="pih-vline" />
+          <span className="pih-step">
             <span className="pih-ico pih-ico--lime">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 8a7 7 0 0 1 14 0" />
               </svg>
             </span>
-          </span>
-          <span>
-            <b>Web form → CRM</b>
-            <em>Lead synced</em>
+            <span>
+              <b>CRM</b>
+              <em>Contact synced · 2s</em>
+            </span>
           </span>
         </div>
       </div>

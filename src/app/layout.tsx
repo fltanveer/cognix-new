@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     "Cognixlab connects disconnected tools and automates manual work for growing companies in Boston and New York, starting with a fixed-price workflow assessment.",
   openGraph: { type: "website", siteName: "Cognixlab", locale: "en_US" },
   twitter: { card: "summary_large_image" },
-  icons: { icon: "/brand/cognixlab-mark.png" },
+  // Favicons come from src/app/icon.svg, favicon.ico and apple-icon.png (built by scripts/build-favicon.mjs).
 };
 
 export const viewport: Viewport = { themeColor: "#10120d", colorScheme: "dark" };

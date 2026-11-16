@@ -18,7 +18,7 @@ const components: PortableTextComponents = {
       return (
         <figure>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={urlFor(value).width(1400).url()} alt={value.alt ?? ""} width={width} height={height} loading="lazy" />
+          <img src={urlFor(value).width(1400).url()} alt={value.alt || value.caption || ""} width={width} height={height} loading="lazy" />
           {value.caption ? <figcaption>{value.caption}</figcaption> : null}
         </figure>
       );

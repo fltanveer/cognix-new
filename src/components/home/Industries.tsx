@@ -15,7 +15,7 @@ const media: Record<string, { src: string; alt: string; tag: string }> = {
   "architecture-construction": {
     src: "/img/industries/architecture-construction.webp",
     alt: "Engineer on a construction site holding a tablet with a wireframe of the building",
-    tag: "PKNail · Revit 2026 add-in live",
+    tag: "PKNail · scan to native Revit model",
   },
   "healthcare-practices": {
     src: "/img/industries/healthcare-practices.webp",

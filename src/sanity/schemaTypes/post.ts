@@ -43,7 +43,7 @@ export const post = defineType({
       type: "image",
       group: "content",
       options: { hotspot: true },
-      fields: [defineField({ name: "alt", title: "Alt text", type: "string" })],
+      fields: [defineField({ name: "alt", title: "Alt text", type: "string", description: "Describe what the image shows, for screen readers and search.", validation: (r) => r.warning("Add alt text so the image is described for screen readers and Google.").required() })],
       validation: (r) => r.required(),
     }),
     defineField({
@@ -91,7 +91,7 @@ export const post = defineType({
           type: "image",
           options: { hotspot: true },
           fields: [
-            defineField({ name: "alt", title: "Alt text", type: "string" }),
+            defineField({ name: "alt", title: "Alt text", type: "string", description: "Describe what the image shows, for screen readers and search.", validation: (r) => r.warning("Add alt text so the image is described for screen readers and Google.").required() }),
             defineField({ name: "caption", type: "string" }),
           ],
         }),

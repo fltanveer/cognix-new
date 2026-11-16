@@ -50,7 +50,7 @@ export async function getPost(slug: string): Promise<PostFull | null> {
   const { data } = await sanityFetch({ query: POST_QUERY, params: { slug }, perspective: "published", stega: false });
   const p = data as RawFull | null;
   if (!p) return null;
-  return { ...toCard(p), cta: p.cta ?? "review", coverAlt: p.cover?.alt ?? "", seoTitle: p.seoTitle, seoDescription: p.seoDescription, body: p.body ?? [] };
+  return { ...toCard(p), cta: p.cta ?? "review", coverAlt: p.cover?.alt || `Cover image for “${p.title}”`, seoTitle: p.seoTitle, seoDescription: p.seoDescription, body: p.body ?? [] };
 }
 
 /** For the sitemap: a plain cached fetch, refreshed hourly. */

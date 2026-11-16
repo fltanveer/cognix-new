@@ -16,8 +16,8 @@ const SignalField = dynamic(() => import("@/components/hero/SignalField").then((
 
 // Published project results only; each card links to its project page.
 const recent = [
-  { href: "/work/auto-inspect", img: "/img/work/auto-inspect-cover.webp", client: "Auto Inspect", industry: "Insurance", metric: "1 min 47 s", label: "Four vehicle photos to an annotated PDF report" },
-  { href: "/work/pknail", img: "/img/work/pknail-cover.webp", client: "PKNail", industry: "AEC", metric: "Revit 2026", label: "Scan-to-Revit engine, add-in live" },
+  { href: "/work/auto-inspect", img: "/img/work/auto-inspect-cover.webp", client: "Auto Inspect", industry: "Insurance", metric: "1 min 47 s", label: "Per inspection report, from four phone photos" },
+  { href: "/work/pknail", img: "/img/work/pknail-cover.webp", client: "PKNail", industry: "AEC", metric: "18h → 45m", label: "Scan-to-model time, native Revit models" },
   { href: "/work/dr-kibria-seo", img: "/img/work/kibria-cover.webp", client: "Dr. Kibria", industry: "Healthcare", metric: "150%+", label: "Organic growth for a surgeon in 4 months" },
 ];
 
@@ -79,17 +79,17 @@ export function Hero() {
       <div data-hero-copy="" className="container-x relative">
         <p data-intro="" data-pending="" className="mb-6 flex items-center gap-2.5 text-[15px] text-[var(--ink-2)]">
           <span className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--ink)]" />
-          AI & digital systems studio · Cambridge, MA
+          AI & digital solutions studio · Massachusetts, USA
         </p>
 
-        <SplitHeading as="h1" id="hero-title" trigger="load" delay={0.25} stagger={0.06} text="Your team shouldn't be the integration layer." className="t-hero max-w-[12.5ch] hero-fit" />
+        <SplitHeading as="h1" id="hero-title" trigger="load" delay={0.25} stagger={0.06} text="Your team is doing work your software should be doing." className="t-hero max-w-[12.5ch] hero-fit" />
 
         <div className="lg:max-w-[60%]">
 
         <div className="mt-8 grid gap-10 md:mt-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-end lg:grid-cols-1 lg:gap-8">
           <p data-intro="" data-pending="" className="t-lead max-w-[46ch] text-[var(--ink-2)]">
-            We connect the tools you already run and automate the busywork for growing companies in Boston and New York. It starts with a
-            two-week Workflow Assessment, and AI goes in only where the numbers work.
+            We connect the tools you already use and automate the copying, chasing and <span className="whitespace-nowrap">re-typing</span> between them. Every engagement starts
+            with a fixed-price, two-week Workflow Assessment, and we use AI only where the numbers work.
           </p>
           <div data-intro="" data-pending="" className="md:justify-self-end lg:justify-self-start">
             <div className="flex flex-wrap gap-3">
@@ -101,7 +101,7 @@ export function Hero() {
               </Link>
             </div>
             <p className="mt-3 text-[14px] text-[var(--ink-3)]">
-              {site.booking.minutes} minutes. We map one workflow and tell you honestly if AI is the fix.
+              {site.booking.minutes} minutes, free. We map one workflow and tell you whether AI is the fix, even when it isn’t.
             </p>
           </div>
         </div>

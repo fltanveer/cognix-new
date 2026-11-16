@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRef } from "react";
-import { services } from "@/content/site";
+import { coreServices, addonServices } from "@/content/site";
 import { Icon } from "@/components/ui/Icon";
 import { gsap, useGSAP, prefersReducedMotion, release } from "@/lib/gsap";
 
@@ -33,7 +33,7 @@ export function ServicesList() {
 
   return (
     <ul ref={root}>
-      {services.map((s) => (
+      {coreServices.map((s) => (
         <li key={s.slug} data-row="" data-pending="" className="relative">
           <div data-rule="" className="absolute inset-x-0 top-0 h-px origin-left bg-[var(--line-strong)]" />
           <Link
@@ -69,6 +69,22 @@ export function ServicesList() {
         </li>
       ))}
       <li className="h-px bg-[var(--line-strong)]" aria-hidden="true" />
+      {/* Add-ons sit below the core three, smaller, so the list reads as one focused offer. */}
+      {addonServices.map((s) => (
+        <li key={s.slug} className="mt-6">
+          <Link
+            href={`/services/${s.slug}`}
+            className="group flex flex-wrap items-baseline gap-x-4 gap-y-1 rounded-2xl px-1 py-3 md:px-4"
+          >
+            <span className="text-[13px] text-[var(--ink-3)]">{s.addon!.label}</span>
+            <span className="inline-flex items-center gap-1.5 text-[17px] text-[var(--ink)]">
+              <span className="link-u">{s.name}</span>
+              <Icon name="arrowUpRight" size={16} className="text-[var(--ink-3)] transition-transform duration-300 group-hover:rotate-45 group-hover:text-[var(--ink)]" />
+            </span>
+            <span className="w-full text-[15px] text-[var(--ink-2)] md:w-auto">{s.short}</span>
+          </Link>
+        </li>
+      ))}
     </ul>
   );
 }

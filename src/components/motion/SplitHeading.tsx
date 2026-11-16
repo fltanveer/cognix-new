@@ -15,8 +15,9 @@ type Props = {
 };
 
 /**
- * Word-by-word heading reveal. The accessible name is the unsplit text in an sr-only span;
- * the split words are aria-hidden. Without JS the words render visible in place.
+ * Word-by-word heading reveal. The accessible name is the unsplit text in aria-label and the split
+ * words are aria-hidden, so the text appears once in the page (no duplicate for crawlers or copy tools).
+ * Without JS the words render visible in place.
  */
 export function SplitHeading({ as: Tag = "h2", text, className, trigger = "scroll", delay = 0, stagger = 0.055, id }: Props) {
   const ref = useRef<HTMLElement>(null);
@@ -51,8 +52,7 @@ export function SplitHeading({ as: Tag = "h2", text, className, trigger = "scrol
   );
 
   return (
-    <Tag ref={ref} className={className} data-pending="" id={id}>
-      <span className="sr-only">{text}</span>
+    <Tag ref={ref} className={className} data-pending="" id={id} aria-label={text}>
       <span aria-hidden="true">
         {words.map((w, i) => (
           <span key={i} className="split-line">

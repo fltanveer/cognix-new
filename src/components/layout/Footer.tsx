@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRef } from "react";
-import { site, services, industries } from "@/content/site";
+import { site, coreServices, industries } from "@/content/site";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 import { Linkedin, Instagram, Facebook } from "lucide-react";
 
@@ -100,7 +100,7 @@ export function Footer() {
             ))}
           </ul>
         </div>
-        {col("Services", services.map((s) => ({ label: s.name, href: `/services/${s.slug}` })))}
+        {col("Services", coreServices.map((s) => ({ label: s.name, href: `/services/${s.slug}` })))}
         {col("Industries", industries.map((s) => ({ label: s.name, href: `/industries/${s.slug}` })))}
         {col("Company", [
           { label: "Work", href: "/work" },
