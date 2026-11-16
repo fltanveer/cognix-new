@@ -21,6 +21,7 @@ const eslintConfig = [
       // Vendored Stageshow kit (MIT, see src/stageshow/NOTICE.md): kept byte-for-byte so it can be updated.
       "src/stageshow/kit/**",
       ".next-build/**",
+      ".next-prod/**",
     ],
   },
 ];

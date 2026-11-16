@@ -4,6 +4,7 @@ import "./globals.css";
 import { site } from "@/content/site";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { BookingProvider } from "@/components/booking/Booking";
+import { ContactBubble } from "@/components/contact/ContactBubble";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CursorLabel } from "@/components/motion/CursorLabel";
@@ -80,7 +81,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body suppressHydrationWarning>
         <SmoothScroll>
           <BookingProvider>
-            <SiteChrome header={<Header />} footer={<Footer />} extras={<><CursorLabel /><ButtonGlow /></>}>
+            <SiteChrome header={<Header />} footer={<Footer />} extras={<><CursorLabel /><ButtonGlow /><ContactBubble /></>}>
               {children}
             </SiteChrome>
           </BookingProvider>

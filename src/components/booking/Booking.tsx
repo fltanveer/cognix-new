@@ -6,8 +6,10 @@ import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import { useLenis } from "@/components/motion/SmoothScroll";
 import { Icon } from "@/components/ui/Icon";
 
-export const calendlySrc = () => {
+/** `details: false` hides Calendly's event summary panel, for embeds where the page already shows it. */
+export const calendlySrc = ({ details = true }: { details?: boolean } = {}) => {
   const u = new URL(site.booking.url);
+  if (!details) u.searchParams.set("hide_event_type_details", "1");
   u.searchParams.set("embed_type", "Inline");
   u.searchParams.set("hide_gdpr_banner", "1");
   u.searchParams.set("background_color", "171a13");

@@ -1,12 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 
 /** Lowest rung of the offer ladder: email-only guide download. */
 export function GuideForm() {
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [err, setErr] = useState("");
+  const shownAt = useRef(0);
+  useEffect(() => {
+    shownAt.current = Date.now();
+  }, []);
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -15,7 +19,7 @@ export function GuideForm() {
     if (!/^\S+@\S+\.\S+$/.test(fd.email || "")) return setErr("Enter a valid work email.");
     setErr("");
     setState("sending");
-    const r = await fetch("/api/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...fd, intent: "guide", page: location.pathname }) }).catch(() => null);
+    const r = await fetch("/api/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...fd, intent: "guide", page: location.pathname, t: shownAt.current }) }).catch(() => null);
     setState(r?.ok ? "done" : "error");
   }
 
@@ -30,7 +34,7 @@ export function GuideForm() {
     );
 
   return (
-    <form onSubmit={submit} noValidate className="card grid gap-4 p-6 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
+    <form onSubmit={submit} noValidate className="card relative grid gap-4 p-6 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
       <label className="text-[14px] text-[var(--ink-2)]">
         Name
         <input name="name" autoComplete="name" className="mt-2 block w-full rounded-[8px] border border-[var(--line-strong)] bg-[var(--canvas)] px-4 py-3 text-[16px] text-[var(--ink)]" />
@@ -39,6 +43,10 @@ export function GuideForm() {
         Work email
         <input name="email" type="email" autoComplete="email" className="mt-2 block w-full rounded-[8px] border border-[var(--line-strong)] bg-[var(--canvas)] px-4 py-3 text-[16px] text-[var(--ink)]" />
       </label>
+      {/* Honeypot: hidden from people and assistive tech. */}
+      <div aria-hidden="true" className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden">
+        <input name="_hp" tabIndex={-1} autoComplete="off" defaultValue="" />
+      </div>
       <button className="btn btn-primary" disabled={state === "sending"}>
         {state === "sending" ? "Sending…" : "Get the guide"}
       </button>

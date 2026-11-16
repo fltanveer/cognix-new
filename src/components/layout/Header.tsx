@@ -187,7 +187,7 @@ export function Header() {
       >
         <nav aria-label="Mobile">
           <ul className="space-y-1">
-            {[{ label: "Home", href: "/" }, ...nav, { label: "Contact", href: "/contact" }].map((n) => (
+            {[{ label: "Home", href: "/" }, ...nav].map((n) => (
               <li key={n.href} className="overflow-hidden">
                 <Link
                   data-mi=""

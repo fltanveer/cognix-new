@@ -29,6 +29,7 @@ export const nav = [
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
   { label: "Insights", href: "/insights" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export type Service = {
@@ -844,7 +845,7 @@ export const tiers = [
   },
   {
     name: "Implementation",
-    price: "from $35,000",
+    price: "from $25,000",
     unit: "3–6 months",
     who: "Scaling. Several workflows, custom software, team adoption.",
     items: [

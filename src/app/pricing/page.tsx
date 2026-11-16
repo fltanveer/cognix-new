@@ -12,7 +12,7 @@ import { getCase } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Pricing: Workflow Assessment, AI Pilots & Implementation",
-  description: "Practical AI, scoped and priced up front. Free Workflow Review, $4,500 fixed Workflow Assessment, AI pilots from $12,000, implementation from $35,000.",
+  description: "Practical AI, scoped and priced up front. Free Workflow Review, $4,500 fixed Workflow Assessment, AI pilots from $12,000, implementation from $25,000.",
   alternates: { canonical: "/pricing" },
 };
 

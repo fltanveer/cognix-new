@@ -37,7 +37,29 @@ const components: PortableTextComponents = {
   },
 };
 
+type TextBlock = PortableTextBlock & { style?: string; children?: { text?: string }[] };
+const isText = (b: PortableTextBlock): b is TextBlock => b._type === "block";
+const heading = /^h([2-6])$/;
+
+/**
+ * Tidies CMS content before rendering: drops empty text blocks (blank headings and paragraphs left by the editor)
+ * and clamps heading levels so they never skip one under the page's h1 (an h3 straight after the title becomes h2).
+ */
+function tidy(blocks: PortableTextBlock[]) {
+  let prev = 1;
+  return blocks.flatMap((b) => {
+    if (!isText(b)) return [b];
+    const text = (b.children ?? []).map((c) => c.text ?? "").join("").trim();
+    if (!text && !b.listItem) return [];
+    const m = b.style?.match(heading);
+    if (!m) return [b];
+    const level = Math.min(Number(m[1]), prev + 1);
+    prev = level;
+    return [level === Number(m[1]) ? b : { ...b, style: `h${level}` }];
+  });
+}
+
 /** Renders a Sanity post body with the same tags the .prose-c styles already cover. */
 export function PostBody({ value }: { value: PortableTextBlock[] }) {
-  return <PortableText value={value} components={components} />;
+  return <PortableText value={tidy(value)} components={components} />;
 }

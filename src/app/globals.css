@@ -525,3 +525,132 @@ footer a.social-btn::after { display: none; } /* already 44px; no extra hit area
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
+
+/* Contact form mode switch: "Tell us about it" / "Just my email". Two radios styled as a segmented control. */
+.lead-switch { display: inline-grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--surface-2); max-width: 100%; }
+.lead-switch-opt { position: relative; cursor: pointer; }
+.lead-switch-opt span {
+  display: block; padding: 10px 18px; border-radius: 999px; text-align: center; white-space: nowrap;
+  font-size: 14.5px; color: var(--ink-2); transition: background-color 0.2s ease, color 0.2s ease;
+}
+.lead-switch-opt:hover span { color: var(--ink); }
+.lead-switch-opt input:checked + span { background: var(--ink); color: var(--canvas); }
+.lead-switch-opt input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 400px) { .lead-switch { display: grid; width: 100%; } .lead-switch-opt span { padding: 10px 10px; font-size: 14px; } }
+
+/* Contact page: the "or" between the calendar and the form. A vertical hairline on desktop, a horizontal one when stacked. */
+.contact-or { position: relative; display: grid; place-items: center; }
+.contact-or::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--line); }
+.contact-or span {
+  position: relative; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 999px;
+  border: 1px solid var(--line-strong); background: var(--canvas); color: var(--ink-3); font-size: 13.5px;
+}
+@media (min-width: 1024px) {
+  .contact-or::before { left: 50%; right: auto; top: 0; bottom: 0; width: 1px; height: auto; }
+}
+
+/* Floating contact bubble: call, WhatsApp or message Zak. Sits above the mobile dock, below the mobile menu (z 40). */
+.cb { position: fixed; z-index: 39; right: 20px; bottom: calc(20px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; align-items: flex-end; }
+@media (max-width: 1023px) { .cb { right: 14px; bottom: calc(82px + env(safe-area-inset-bottom)); } }
+.cb-toggle {
+  position: relative; display: inline-flex; align-items: center; height: 56px; padding: 0 22px 0 16px; border-radius: 999px;
+  background: var(--accent); color: var(--accent-ink); font-size: 15.5px; white-space: nowrap;
+  box-shadow: 0 10px 28px -8px oklch(0.9 0.2 125 / 0.45), 0 2px 6px rgb(0 0 0 / 0.35);
+  transition: transform 0.16s ease-out, box-shadow 0.2s ease, padding 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.cb-toggle:hover { transform: translateY(-2px); box-shadow: 0 14px 34px -8px oklch(0.9 0.2 125 / 0.55), 0 2px 6px rgb(0 0 0 / 0.35); }
+.cb-toggle:active { transform: scale(0.97); }
+.cb-toggle:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+/* Over light or lime sections the button turns black with a lime mark, so it stays visible. */
+.cb[data-on-light] .cb-toggle { background: #10120d; color: #f2f4ec; box-shadow: 0 10px 28px -10px rgb(16 18 13 / 0.45), 0 2px 6px rgb(16 18 13 / 0.2); }
+.cb[data-on-light] .cb-ic-chat { color: var(--accent); }
+.cb[data-on-light] .cb-toggle:focus-visible { outline-color: #10120d; }
+.cb-toggle { transition: transform 0.16s ease-out, box-shadow 0.2s ease, padding 0.24s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.3s ease, color 0.3s ease; }
+.cb-icons { position: relative; display: grid; place-items: center; width: 24px; height: 24px; flex-shrink: 0; }
+.cb-ic { position: absolute; width: 24px; height: 24px; transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.16s ease; }
+.cb-ic-x { opacity: 0; transform: rotate(-90deg) scale(0.6); }
+.cb-label-text { display: inline-block; max-width: 120px; margin-left: 9px; overflow: hidden; transition: max-width 0.24s cubic-bezier(0.2, 0.8, 0.2, 1), margin 0.24s ease, opacity 0.16s ease; }
+/* Open: the pill folds into a round close button. */
+.cb[data-open] .cb-toggle { padding: 0 16px; }
+.cb[data-open] .cb-label-text { max-width: 0; margin-left: 0; opacity: 0; }
+.cb[data-open] .cb-ic-chat { opacity: 0; transform: rotate(90deg) scale(0.6); }
+.cb[data-open] .cb-ic-x { opacity: 1; transform: none; }
+@media (max-width: 1023px) {
+  .cb-toggle { height: 52px; padding: 0 18px 0 14px; font-size: 15px; }
+  .cb:is([data-open], [data-scrolled]) .cb-toggle { padding: 0 14px; }
+  .cb[data-scrolled] .cb-label-text { max-width: 0; margin-left: 0; opacity: 0; }
+}
+
+.cb-panel {
+  position: absolute; right: 0; bottom: 70px; width: 344px; max-width: calc(100vw - 28px);
+  max-height: calc(100svh - 120px); overflow-y: auto; overscroll-behavior: contain;
+  background: var(--surface); border: 1px solid var(--line-strong); border-radius: 18px;
+  box-shadow: inset 0 1px 0 var(--hi), 0 24px 60px -18px rgb(0 0 0 / 0.75), 0 4px 14px rgb(0 0 0 / 0.3);
+  transform-origin: bottom right; opacity: 0; visibility: hidden; transform: translateY(8px) scale(0.97);
+  transition: opacity 0.18s ease-out, transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s linear 0.22s;
+}
+.cb[data-open] .cb-panel { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+@media (max-width: 1023px) { .cb-panel { max-height: calc(100svh - 190px); } }
+
+.cb-head { display: flex; align-items: center; gap: 12px; padding: 16px 14px 14px 16px; border-bottom: 1px solid var(--line); }
+.cb-logo { display: block; height: 22px; width: auto; }
+.cb-name { font-size: 16px; color: var(--ink); line-height: 1.25; }
+.cb-role { font-size: 13px; color: var(--ink-3); line-height: 1.35; }
+.cb-x { margin-left: auto; align-self: flex-start; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 999px; color: var(--ink-3); transition: color 0.15s ease, background-color 0.15s ease; }
+.cb-x:hover { color: var(--ink); background: var(--surface-2); }
+.cb-x svg { width: 18px; height: 18px; }
+
+.cb-body { display: flex; flex-direction: column; gap: 12px; padding: 16px; }
+.cb-number { display: flex; align-items: center; gap: 12px; padding: 12px 12px 12px 14px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--line); }
+.cb-label { font-size: 12.5px; color: var(--ink-3); }
+.cb-digits { margin-top: 2px; font-size: 20px; letter-spacing: -0.01em; color: var(--ink); user-select: all; -webkit-user-select: all; white-space: nowrap; }
+.cb-copy {
+  margin-left: auto; display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; border-radius: 999px; flex-shrink: 0;
+  border: 1px solid var(--line-strong); color: var(--ink-2); font-size: 13.5px; transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+.cb-copy:hover { color: var(--ink); border-color: var(--ink-3); }
+.cb-copy svg { width: 15px; height: 15px; }
+.cb-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.cb-act {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 46px; border-radius: 12px;
+  border: 1px solid var(--line-strong); color: var(--ink); font-size: 15px; transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.cb-act:hover { background: var(--surface-2); border-color: var(--ink-3); }
+.cb-act svg { width: 18px; height: 18px; }
+.cb-act-wa svg { color: #25d366; }
+.cb-or { position: relative; display: grid; place-items: center; margin: 2px 0; }
+.cb-or::before { content: ""; position: absolute; inset: 50% 0 auto; height: 1px; background: var(--line); }
+.cb-or span { position: relative; padding: 0 10px; background: var(--surface); color: var(--ink-3); font-size: 12.5px; }
+.cb-msg { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 12px; border: 1px solid var(--line); transition: background-color 0.15s ease, border-color 0.15s ease; }
+.cb-msg:hover { background: var(--surface-2); border-color: var(--line-strong); }
+.cb-msg-icon { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); flex-shrink: 0; }
+.cb-msg-icon svg { width: 18px; height: 18px; }
+.cb-msg-arrow { width: 18px; height: 18px; color: var(--ink-3); transition: transform 0.15s ease, color 0.15s ease; }
+.cb-msg:hover .cb-msg-arrow { transform: translateX(2px); color: var(--ink); }
+.cb-back { display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; font-size: 13.5px; color: var(--ink-3); transition: color 0.15s ease; }
+.cb-back:hover { color: var(--ink); }
+.cb-back svg { width: 15px; height: 15px; }
+.cb-field { display: flex; flex-direction: column; gap: 6px; font-size: 13.5px; color: var(--ink-2); }
+.cb-field input, .cb-field textarea {
+  width: 100%; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--canvas); color: var(--ink);
+  padding: 10px 12px; font-size: 16px; resize: vertical; transition: border-color 0.15s ease;
+}
+.cb-field input::placeholder, .cb-field textarea::placeholder { color: var(--ink-3); }
+.cb-field input:focus, .cb-field textarea:focus { outline: none; border-color: var(--ink-2); }
+.cb-field input:focus-visible, .cb-field textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.cb-field input[aria-invalid="true"] { border-color: var(--warn); }
+.cb-send {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 46px; border-radius: 999px;
+  background: var(--accent); color: var(--accent-ink); font-size: 15px; transition: filter 0.15s ease, transform 0.12s ease;
+}
+.cb-send:hover { filter: brightness(1.06); }
+.cb-send:active { transform: scale(0.98); }
+.cb-send:disabled { opacity: 0.7; }
+.cb-send svg { width: 17px; height: 17px; }
+.cb-done { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 999px; background: var(--accent); color: var(--accent-ink); }
+.cb-done svg { width: 15px; height: 15px; }
+.cb :is(button, a):focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .cb-panel { transform: none !important; } }
+
+/* Footer logo: the SVG holds the layout; once particles are ready the canvas draws the logo instead. */
+.footer-logo[data-particles="on"] .footer-logo-svg { visibility: hidden; }

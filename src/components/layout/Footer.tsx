@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
 import { site, coreServices, industries } from "@/content/site";
-import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { FooterLogo } from "@/components/layout/FooterLogo";
 import { Linkedin, Instagram, Facebook } from "lucide-react";
 
 /** X's current logo (lucide only ships the old Twitter bird). */
@@ -23,24 +22,6 @@ const SOCIAL = [
 ] as const;
 
 export function Footer() {
-  const word = useRef<HTMLDivElement>(null);
-
-  useGSAP(() => {
-    const el = word.current;
-    if (!el || prefersReducedMotion()) return;
-    gsap.fromTo(
-      el.querySelectorAll("span"),
-      { yPercent: 100 },
-      {
-        yPercent: 0,
-        ease: "expo.out",
-        duration: 1.4,
-        stagger: 0.045,
-        scrollTrigger: { trigger: el, start: "top 95%", once: true },
-      }
-    );
-  });
-
   const col = (title: string, links: { label: string; href: string; ext?: boolean }[]) => (
     <div>
       <h2 className="text-[13px] font-normal tracking-normal text-[var(--ink-3)]">{title}</h2>
@@ -111,15 +92,9 @@ export function Footer() {
         ])}
       </div>
 
-      <div ref={word} aria-hidden="true" className="container-x mt-20 flex select-none overflow-hidden text-[clamp(64px,19.5vw,300px)] font-medium leading-[0.82] tracking-[-0.06em] text-[var(--surface-2)]">
-        {"Cognixlab".split("").map((c, i) => (
-          <span key={i} className="inline-block">
-            {c}
-          </span>
-        ))}
-      </div>
+      <FooterLogo />
 
-      <div className="container-x flex flex-col gap-4 border-t border-[var(--line)] py-6 text-[13px] text-[var(--ink-3)] md:flex-row md:items-center md:justify-between">
+      <div className="container-x flex flex-col gap-4 border-t border-[var(--line)] py-6 text-[13px] text-[var(--ink-3)] md:flex-row md:items-center md:justify-between lg:pb-[100px]">
         <p>© {new Date().getFullYear()} {site.legalName}. Registered in Massachusetts.</p>
         <ul className="flex flex-wrap gap-x-6 gap-y-2">
           <li><Link className="link-u hover:text-[var(--ink)]" href="/privacy">Privacy policy</Link></li>

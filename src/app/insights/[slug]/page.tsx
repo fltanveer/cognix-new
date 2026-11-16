@@ -70,7 +70,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           <div className="prose-c max-w-[68ch]">
             <PostBody value={p.body} />
           </div>
-          <aside className="lg:sticky lg:top-28 lg:self-start">
+          <div className="lg:sticky lg:top-28 lg:self-start">
             <div className="rounded-[var(--r-card)] border border-[var(--paper-line)] bg-[var(--paper-2)] p-6">
               {p.cta === "visibility" ? (
                 <>
@@ -90,7 +90,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                 </>
               )}
             </div>
-          </aside>
+          </div>
         </div>
       </div>
 
