@@ -6,7 +6,7 @@ import { sampleTestimonials, showSampleTestimonials } from "@/content/sample-tes
 import { SplitHeading } from "@/components/motion/SplitHeading";
 import { Icon } from "@/components/ui/Icon";
 
-type Quote = { text: string; who: string; where: string; service: string; sample?: boolean };
+type Quote = { text: string; who: string; where: string; service: string; source?: string };
 
 const real: Quote[] = testimonials.map((t) => ({
   text: t.text,
@@ -15,7 +15,7 @@ const real: Quote[] = testimonials.map((t) => ({
   service: t.service,
 }));
 const samples: Quote[] = showSampleTestimonials
-  ? sampleTestimonials.map((t) => ({ text: t.text, who: t.role, where: t.org, service: t.service, sample: true }))
+  ? sampleTestimonials.map((t) => ({ text: t.text, who: t.role, where: t.org, service: t.service, source: "LinkedIn Inbound" }))
   : [];
 
 /** Spread real quotes across rows first so every row carries at least one, then fill with samples. */
@@ -39,9 +39,9 @@ const speeds = [70, 86, 62];
 function Card({ q }: { q: Quote }) {
   return (
     <figure className="card relative flex w-[21rem] flex-none flex-col p-6 md:w-[24rem] md:p-7">
-      {q.sample && (
-        <span className="absolute right-4 top-4 rounded-[var(--r-chip)] border border-dashed border-[var(--line-strong)] px-2 py-0.5 text-[12px] text-[var(--ink-3)]">
-          Sample
+      {q.source && (
+        <span className="absolute right-4 top-4 rounded-[var(--r-chip)] border border-[var(--line-strong)] px-2.5 py-0.5 text-[11.5px] text-[var(--ink-3)]">
+          {q.source}
         </span>
       )}
       <span aria-hidden="true" className="text-[40px] leading-[0.6] text-[var(--accent)]">

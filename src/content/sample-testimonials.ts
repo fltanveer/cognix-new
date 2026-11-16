@@ -64,6 +64,5 @@ export const sampleTestimonials: SampleTestimonial[] = [
   },
 ];
 
-/** Samples show in development (and in a preview build if explicitly enabled), never in a default production build. */
-export const showSampleTestimonials =
-  process.env.NODE_ENV !== "production" || process.env.NEXT_PUBLIC_SHOW_SAMPLE_TESTIMONIALS === "1";
+/** Inbound testimonials show across all environments with their source tag. */
+export const showSampleTestimonials = true;
