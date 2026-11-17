@@ -441,13 +441,16 @@ footer a.social-btn::after { display: none; } /* already 44px; no extra hit area
 .hero-badge-loc { display: inline-flex; align-items: center; gap: 6px; padding-left: 8px; white-space: nowrap; color: var(--ink); }
 .hero-badge-loc svg { width: 15px; height: 15px; color: var(--accent); flex: none; }
 .hero-badge-short { display: none; }
-@media (max-width: 370px) { .hero-badge-long { display: none; } .hero-badge-short { display: inline; } }
-@media (max-width: 400px) {
-  .hero-badge { font-size: 13px; padding-right: 11px; }
+/* Phones: the full badge must fit one line. Type scales with the viewport (≈60px of fixed padding/icon
+   plus ≈22px of text per px of font, with ~8% headroom for wider iOS text rendering). Only screens too
+   narrow for an 11px badge (<350px) fall back to "MA, USA". */
+@media (max-width: 479px) {
+  .hero-badge { font-size: clamp(11px, calc((100vw - 90px) / 24), 14.5px); padding-right: 11px; }
   .hero-badge-tag { padding: 6px 10px; }
   .hero-badge-loc { padding-left: 5px; gap: 4px; }
-  .hero-badge-loc svg { width: 13px; height: 13px; }
+  .hero-badge-loc svg { width: 1.05em; height: 1.05em; }
 }
+@media (max-width: 349px) { .hero-badge-long { display: none; } .hero-badge-short { display: inline; } }
 .hero-phone { display: none; }
 @media (min-width: 1024px) {
   .hero-phone {
