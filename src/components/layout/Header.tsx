@@ -161,18 +161,18 @@ export function Header() {
       <header
         className={`site-header fixed inset-x-0 top-0 z-50 text-[var(--ink)] ${scrolled && !open ? "is-scrolled" : ""} ${open ? "" : toneClass(tone)}`}
       >
-        <div className="container-x flex h-[72px] items-center justify-between gap-6">
-          <Logo className="relative z-[60]" />
+        {/* Hairline along the bar's bottom edge; a lime dot with a short tail glides across it. */}
+        <span className="nav-trace" aria-hidden="true">
+          <span className="nav-trace-run">
+            <span className="nav-trace-dot" />
+          </span>
+        </span>
+        <div className="container-x flex h-[72px] items-center justify-between gap-3 sm:gap-6">
+          <Logo className="relative z-[60] shrink-0" />
           <TubeNav isActive={isActive} />
-          <div className="flex items-center gap-2">
-            <div
-              className={`hidden transition-[opacity,transform] duration-300 sm:block ${
-                scrolled || pathname !== "/" ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"
-              }`}
-              inert={!scrolled && pathname === "/"}
-            >
-              <BookButton className="btn btn-primary btn-sm" source="header" />
-            </div>
+          {/* Primary CTA stays in the bar at every width and scroll position. */}
+          <div className="flex shrink-0 items-center">
+            <BookButton className="btn btn-primary btn-sm header-cta" source="header" />
           </div>
         </div>
       </header>

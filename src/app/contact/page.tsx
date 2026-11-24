@@ -8,7 +8,7 @@ import { Reveal } from "@/components/motion/Reveal";
 
 export const metadata: Metadata = {
   title: { absolute: "Contact Cognixlab | Book a Workflow Review | Boston & NYC" },
-  description: "Book a free Workflow Review with Cognixlab or send us a note. We reply within one business day. Based at 301 Binney St, Cambridge, MA.",
+  description: "Book a free Workflow Review with Cognixlab or send us a note. We reply within one business day. Based at 23 Marrett Rd, Burlington, MA.",
   alternates: { canonical: "/contact" },
 };
 

@@ -5,12 +5,12 @@ export const site = {
   email: "contact@cognixlab.co",
   phone: "+1 781 227 5492",
   phoneHref: "tel:+17812275492",
-  address: { street: "301 Binney St", city: "Cambridge", region: "MA", zip: "02142", country: "US" },
+  address: { street: "23 Marrett Rd", city: "Burlington", region: "MA", zip: "01803", country: "US" },
   // Existing Calendly event. Create a 30-minute "Workflow Review" event type and swap the URL + minutes.
   booking: {
     url: "https://calendly.com/zakaria-mahmud-bappy/45min",
     minutes: 45,
-    label: "Book a Workflow Review",
+    label: "Free Workflow Review",
   },
   social: {
     linkedin: "https://www.linkedin.com/company/cognixlab-co",
@@ -119,7 +119,7 @@ export const services: Service[] = [
       { q: "Can you take over an existing product?", a: "Yes. We start with a short technical review so you know what you're inheriting before we commit to a plan." },
     ],
     metaTitle: "Custom Software & AI Product Development | Cognixlab, Boston",
-    metaDescription: "Custom web, mobile and desktop software with AI built in where it pays off. Fixed milestones, your code, built by Cognixlab in Cambridge, MA.",
+    metaDescription: "Custom web, mobile and desktop software with AI built in where it pays off. Fixed milestones, your code, built by Cognixlab in Burlington, MA.",
   },
   {
     slug: "product-ux",
@@ -150,7 +150,7 @@ export const services: Service[] = [
       { q: "Do you only design, or build too?", a: "Both. Our designers and engineers work in the same team, so what we design is what ships." },
     ],
     metaTitle: "Product & UX Design for SaaS and Internal Tools | Cognixlab",
-    metaDescription: "UX reviews, research and product design that improve adoption of software people already pay for. Cognixlab, Cambridge, MA.",
+    metaDescription: "UX reviews, research and product design that improve adoption of software people already pay for. Cognixlab, Burlington, MA.",
   },
   {
     slug: "seo-growth",
@@ -809,7 +809,7 @@ export const tiers = [
       "Honest view on whether AI, automation or nothing is the fix",
       "No slides, no pitch",
     ],
-    cta: "Book a Workflow Review",
+    cta: "Free Workflow Review",
     href: "booking",
   },
   {
@@ -925,7 +925,7 @@ export const homeFaqs = [
   { q: "How long until something is running?", a: "The assessment ends with a working proof of concept on your data. A production pilot typically takes four to six weeks after that." },
   { q: "How do you handle our data?", a: "NDA before discovery, least-privilege access, personal data masked before it reaches a model, and no training on client data. Details are on our data handling page." },
   { q: "What if AI isn't the answer?", a: "We'll tell you. Many manual steps disappear with a better integration or a simple rule, which is cheaper to build and run." },
-  { q: "Do you only work in Boston and New York?", a: "We're based in Cambridge, MA and focus on Boston and New York, but we work remotely with clients elsewhere in the US and abroad." },
+  { q: "Do you only work in Boston and New York?", a: "We're based in Burlington, MA and focus on Boston and New York, but we work remotely with clients elsewhere in the US and abroad." },
 ];
 
 export function getCase(slug: string) {

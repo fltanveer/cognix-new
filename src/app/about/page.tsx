@@ -10,8 +10,8 @@ import { Faq } from "@/components/Faq";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: { absolute: "About Cognixlab | AI, Software, UX & SEO Studio in Cambridge, MA" },
-  description: "Cognixlab is a Cambridge, MA studio that modernizes operations with AI and connected systems for growing companies in Boston and New York.",
+  title: { absolute: "About Cognixlab | AI, Software, UX & SEO Studio in Burlington, MA" },
+  description: "Cognixlab is a Burlington, MA studio that modernizes operations with AI and connected systems for growing companies in Boston and New York.",
   alternates: { canonical: "/about" },
 };
 
@@ -58,7 +58,7 @@ export default function AboutPage() {
       <section className="section border-y border-[var(--line)] bg-[var(--surface)]" aria-labelledby="local-title">
         <div className="container-x grid gap-10 md:grid-cols-2">
           <h2 id="local-title" className="t-d2 max-w-[14ch]">
-            Based in Cambridge, Massachusetts
+            Based in Burlington, Massachusetts
           </h2>
           <div className="space-y-4 text-[var(--ink-2)]">
             <p>

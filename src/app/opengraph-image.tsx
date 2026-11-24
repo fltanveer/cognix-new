@@ -19,7 +19,7 @@ export default async function OG() {
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 76, lineHeight: 1.02, letterSpacing: -3, maxWidth: 820 }}>Your team is doing work your software should be doing.</div>
-          <div style={{ marginTop: 28, fontSize: 28, color: "rgba(238,241,232,0.66)" }}>AI & workflow automation · Cambridge, MA · Boston & New York</div>
+          <div style={{ marginTop: 28, fontSize: 28, color: "rgba(238,241,232,0.66)" }}>AI & workflow automation · Burlington, MA · Boston & New York</div>
         </div>
       </div>
     ),
